@@ -81,7 +81,7 @@ export default function UseCases() {
   }
 
   return (
-    <section id="use-cases" className="py-16 bg-background-secondary relative" ref={containerRef}>
+    <section id="useCases" className="py-16 bg-background-secondary relative" ref={containerRef}>
       {/* Background decorations */}
       <div className="absolute inset-0 bg-grid opacity-10 z-0"></div>
       
@@ -223,7 +223,7 @@ export default function UseCases() {
             >
               <Link 
                 href="#contact" 
-                className="btn-primary inline-flex items-center text-sm px-6 py-2"
+                className="btn-primary px-4 py-2 text-sm inline-flex items-center"
               >
                 Launch Your AI Agent in 24 Hours
                 <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -15,22 +15,29 @@ const config: Config = {
       },
       colors: {
         background: {
-          DEFAULT: '#0f0f0f',
-          secondary: '#171717',
+          DEFAULT: 'var(--background)',
+          secondary: 'var(--background-secondary)',
         },
         foreground: {
-          DEFAULT: '#ffffff',
-          secondary: '#a0a0a0',
-          muted: '#727272',
+          DEFAULT: 'var(--foreground)',
+          secondary: 'var(--foreground-secondary)',
+          muted: 'var(--foreground-muted)',
         },
         accent: {
-          DEFAULT: '#ffffff',
-          secondary: '#e0e0e0',
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
         },
         border: {
-          DEFAULT: '#2a2a2a',
-          active: '#3f3f3f',
+          DEFAULT: 'var(--border)',
         },
+        primary: {
+          DEFAULT: 'var(--primary)',
+          hover: 'var(--primary-hover)',
+        },
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          hover: 'var(--secondary-hover)',
+        }
       },
       textColor: {
         foreground: {
@@ -40,7 +47,7 @@ const config: Config = {
         },
         accent: {
           DEFAULT: 'var(--accent)',
-          secondary: 'var(--accent-secondary)',
+          foreground: 'var(--accent-foreground)',
         },
       },
       backgroundColor: {
@@ -48,11 +55,18 @@ const config: Config = {
           DEFAULT: 'var(--background)',
           secondary: 'var(--background-secondary)',
         },
+        primary: {
+          DEFAULT: 'var(--primary)',
+          hover: 'var(--primary-hover)',
+        },
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          hover: 'var(--secondary-hover)',
+        }
       },
       borderColor: {
         border: {
           DEFAULT: 'var(--border)',
-          active: 'var(--border-active)',
         },
       },
       spacing: {

@@ -5,10 +5,17 @@ import Link from "next/link"
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[80vh] md:min-h-[90vh] lg:min-h-screen flex items-start md:items-center overflow-hidden pt-12 md:pt-16">
+    <section id="hero" className="relative min-h-[80vh] md:min-h-[90vh] lg:min-h-screen flex items-start md:items-center overflow-hidden pt-12 md:pt-16">
       {/* Background elements */}
       <div className="absolute inset-0 bg-grid opacity-20 z-0"></div>
       <div className="absolute top-0 left-0 right-0 h-[300px] md:h-[500px] bg-gradient-to-b from-accent/10 to-transparent opacity-70 z-0"></div>
+      
+      {/* Animated gradient orbs */}
+      <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-accent-gradient opacity-5 blur-[100px] animate-float"></div>
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-accent-gradient opacity-5 blur-[80px] transform -translate-x-1/2 translate-y-1/3"></div>
+
+      {/* Noise texture overlay */}
+      <div className="absolute inset-0 bg-noise opacity-30 z-0"></div>
       
       <div className="container mx-auto px-4 py-6 md:py-12 lg:py-16 z-10 relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-start lg:items-center">
@@ -18,7 +25,7 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
             className="space-y-4 md:space-y-6 lg:space-y-8"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-background-secondary">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-glass">
               <span className="animate-pulse h-2 w-2 rounded-full bg-accent"></span>
               <p className="text-sm font-medium">AI Voice Agent Platform</p>
             </div>
@@ -32,14 +39,14 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-2 items-center">
-              <div className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 rounded-full border border-border">
+              <div className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 rounded-full border border-border bg-glass">
                 <svg className="w-3 h-3 sm:w-4 sm:h-4 text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <p className="text-xs sm:text-sm">Available 24/7</p>
               </div>
-              <div className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 rounded-full border border-border">
+              <div className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 rounded-full border border-border bg-glass">
                 <svg className="w-3 h-3 sm:w-4 sm:h-4 text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   <path d="M2 12H22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -47,7 +54,7 @@ export default function Hero() {
                 </svg>
                 <p className="text-xs sm:text-sm">Multilingual</p>
               </div>
-              <div className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 rounded-full border border-border">
+              <div className="inline-flex items-center gap-2 px-2 sm:px-3 py-1 rounded-full border border-border bg-glass">
                 <svg className="w-3 h-3 sm:w-4 sm:h-4 text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   <path d="M16.2426 7.75736C18.5858 10.1005 18.5858 13.8995 16.2426 16.2426C13.8995 18.5858 10.1005 18.5858 7.75736 16.2426C5.41421 13.8995 5.41421 10.1005 7.75736 7.75736C10.1005 5.41421 13.8995 5.41421 16.2426 7.75736" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -58,18 +65,18 @@ export default function Hero() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="#demo" className="btn-primary">
+              <Link href="#demo" className="btn-primary px-4 py-2 text-sm shadow-accent-glow">
                 Get Started
               </Link>
-              <Link href="#demo" className="btn-secondary flex items-center gap-2">
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 20 20" fill="currentColor">
+              <Link href="#demo" className="btn-secondary px-4 py-2 text-sm flex items-center gap-2 shadow-glow">
+                <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"/>
                 </svg>
                 Watch Demo
               </Link>
             </div>
             
-            <div className="pt-2 md:pt-4">
+            <div className="pt-0 md:pt-0 -mt-1">
               <p className="text-xs font-medium text-accent">Built by 3x Founders Who&apos;ve Scaled Multiple Products Across AI and Web3.</p>
             </div>
           </motion.div>
@@ -81,11 +88,17 @@ export default function Hero() {
             className="relative mt-2 md:mt-0"
           >
             <div className="relative w-full max-w-[280px] sm:max-w-sm lg:max-w-md aspect-square mx-auto">
-              <div className="absolute inset-0 rounded-full bg-accent/5 animate-pulse"></div>
+              <motion.div 
+                className="absolute inset-0 rounded-full bg-accent/5 animate-pulse"
+                animate={{ 
+                  boxShadow: ['0 0 20px rgba(255, 255, 255, 0.1)', '0 0 30px rgba(255, 255, 255, 0.2)', '0 0 20px rgba(255, 255, 255, 0.1)'] 
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+              ></motion.div>
               <div className="absolute inset-8 rounded-full bg-accent/10 animate-float"></div>
               
               {/* Dashboard mockup */}
-              <div className="absolute inset-10 sm:inset-12 bg-background-secondary rounded-2xl border border-border shadow-lg overflow-hidden backdrop-blur-subtle">
+              <div className="absolute inset-10 sm:inset-12 bg-glass rounded-2xl border border-border shadow-glow backdrop-blur-subtle overflow-hidden">
                 <div className="p-2 sm:p-3">
                   {/* Dashboard header */}
                   <div className="flex items-center justify-between mb-3 sm:mb-4">
@@ -99,7 +112,7 @@ export default function Hero() {
                     </div>
                     
                     <div className="flex items-center gap-1.5 sm:gap-2">
-                      <div className="px-1 sm:px-1.5 py-0.5 bg-accent/10 rounded text-[8px] sm:text-[10px] font-medium">Live</div>
+                      <div className="px-1 sm:px-1.5 py-0.5 bg-accent/10 rounded-full text-[8px] sm:text-[10px] font-medium">Live</div>
                       <div className="flex gap-1">
                         <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>
                         <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>

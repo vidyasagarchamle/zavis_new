@@ -1,115 +1,148 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 
 const features = [
   {
-    title: 'Conversational Intelligence',
-    description: 'Understands intent, sentiment, and carries multi-turn natural dialogs',
+    id: 1,
+    title: "Real-time Transcription",
+    description: "Every call is accurately transcribed with speaker detection, ready for your review.",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+        <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z" />
+        <line x1="9" y1="9" x2="15" y2="9" />
+        <line x1="9" y1="13" x2="15" y2="13" />
+        <line x1="9" y1="17" x2="13" y2="17" />
       </svg>
-    ),
+    )
   },
   {
-    title: '24/7 Operations',
-    description: 'Works non-stop, handles 1000s of concurrent calls',
+    id: 2,
+    title: "24/7 Availability",
+    description: "Never miss a customer call, even outside business hours. ZAVIS is always ready.",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="12 6 12 12 16 14" />
       </svg>
-    ),
+    )
   },
   {
-    title: 'Multilingual Support',
-    description: 'Real-time Arabic, English, and more languages with dialect detection',
+    id: 3,
+    title: "CRM Integration",
+    description: "Automatically sync call data with your existing tools like Salesforce and HubSpot.",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
       </svg>
-    ),
+    )
   },
   {
-    title: 'Compliance & QA',
-    description: 'Follows approved scripts, logs consent, and maintains regulatory standards',
+    id: 4,
+    title: "Multilingual Support",
+    description: "Communicate fluently in over 35 languages and regional accents with natural speech.",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+        <path d="M2 12h20" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
       </svg>
-    ),
+    )
   },
   {
-    title: 'Easy Integrations',
-    description: 'Connects with CRM, telephony, and databases through secure APIs',
+    id: 5,
+    title: "Smart Routing",
+    description: "Intelligently route callers to human agents when necessary, with full context transfer.",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 3h5v5" />
+        <path d="M4 20L21 3" />
+        <path d="M21 16v5h-5" />
+        <path d="M15 15l6 6" />
+        <path d="M4 4l5 5" />
       </svg>
-    ),
+    )
   },
   {
-    title: 'Smart Escalation',
-    description: 'Transfers to human agent with full transcript when needed',
+    id: 6,
+    title: "Compliance Guardrails",
+    description: "Stay compliant with built-in support for GDPR, HIPAA, PCI, and industry standards.",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       </svg>
-    ),
-  },
+    )
+  }
 ]
 
-const Features = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
+export default function Features() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  }
 
   return (
-    <section ref={ref} className="section bg-white relative overflow-hidden">
-      <div className="container">
+    <section id="features" className="section relative overflow-hidden">
+      {/* Background gradient elements */}
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-accent-gradient opacity-5 blur-[100px]"></div>
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-accent-gradient opacity-5 blur-[80px]"></div>
+      
+      <div className="container relative z-10">
         <motion.div
-          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
+          className="text-center mb-16"
         >
-          <span className="inline-block px-3 py-1 text-sm font-medium text-blue-700 bg-blue-50 rounded-full mb-4">
-            Powerful Features
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">What Makes ZAVIS Special</h2>
-          <p className="text-lg text-[color:var(--foreground-secondary)] max-w-2xl mx-auto">
-            Our platform combines cutting-edge AI with practical features that make handling customer calls effortless and effective.
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">Powerful Features</h2>
+          <p className="text-lg md:text-xl text-[color:var(--foreground-secondary)] max-w-3xl mx-auto">
+            Everything you need to replace your traditional call center with AI voice agents.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {features.map((feature, index) => (
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {features.map((feature) => (
             <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
+              key={feature.id}
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
             >
-              <div className="h-full card hover:border-blue-200 hover:bg-white/80">
-                <div className="flex items-center justify-center w-12 h-12 mb-4 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors">
+              <div className="card h-full hover-glow flex flex-col">
+                <div className="rounded-full bg-[color:var(--glass-bg)] p-4 w-16 h-16 flex items-center justify-center mb-6 text-[color:var(--accent-1)] group-hover:bg-[color:var(--accent-1)] group-hover:text-white transition-colors duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="text-lg font-semibold mb-3">{feature.title}</h3>
+                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
                 <p className="text-[color:var(--foreground-secondary)]">{feature.description}</p>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-
-      {/* Background decorations */}
-      <div className="absolute -bottom-24 right-0 w-56 h-56 bg-blue-50 rounded-full opacity-70 blur-2xl -z-10"></div>
-      <div className="absolute top-24 -left-12 w-32 h-32 bg-blue-50 rounded-full opacity-50 blur-xl -z-10"></div>
     </section>
   )
-}
-
-export default Features 
+} 

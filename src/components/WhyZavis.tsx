@@ -74,7 +74,7 @@ export default function WhyZavis() {
   ]
 
   return (
-    <section id="why-zavis" className="py-20 relative" ref={containerRef}>
+    <section id="whyZavis" className="py-20 relative" ref={containerRef}>
       {/* Background decorations */}
       <div className="absolute inset-0 bg-grid opacity-10 z-0"></div>
       
