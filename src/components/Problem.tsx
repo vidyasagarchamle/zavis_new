@@ -80,7 +80,7 @@ export default function Problem() {
             transition={{ duration: 0.4, delay: 0.2 }}
           >
             Long wait times. Scripted agents. Missed leads.
-            Customer support hasn't evolved — and it's silently killing your growth.
+            Customer support hasn&apos;t evolved — and it&apos;s silently killing your growth.
             <span className="font-semibold"> ZAVIS voice agents fix that in days, not months.</span>
           </motion.p>
         </div>

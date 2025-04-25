@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 
 type LogoProps = {
-  dark?: boolean;
   size?: "sm" | "md" | "lg";
   showText?: boolean;
   animated?: boolean;
@@ -13,7 +12,6 @@ type LogoProps = {
 };
 
 export default function Logo({ 
-  dark = false, 
   size = "md", 
   showText = true, 
   animated = true,

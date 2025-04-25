@@ -25,7 +25,7 @@ export default function CTA() {
             Let ZAVIS handle your next <span className="text-gradient">1,000 calls</span> — starting today.
           </h2>
           <p className="text-[color:var(--foreground-secondary)] text-lg md:text-xl mb-10 max-w-2xl mx-auto">
-            Whether you're a startup or an enterprise, we'll help you deploy in 24 hours or less.
+            Whether you&apos;re a startup or an enterprise, we&apos;ll help you deploy in 24 hours or less.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">

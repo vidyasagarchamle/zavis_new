@@ -132,7 +132,7 @@ export default function UseCases() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center text-[color:var(--foreground-secondary)] text-sm italic max-w-2xl mx-auto mb-12"
         >
-          These aren't just features — they're hours saved, costs cut, and customers delighted.
+          These aren&apos;t just features — they&apos;re hours saved, costs cut, and customers delighted.
         </motion.p>
 
         {/* Feature cards - more compact */}

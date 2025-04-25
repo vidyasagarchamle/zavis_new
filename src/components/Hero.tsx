@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import Link from "next/link"
-import Image from "next/image"
 
 export default function Hero() {
   return (
@@ -71,7 +70,7 @@ export default function Hero() {
             </div>
             
             <div className="pt-2 md:pt-4">
-              <p className="text-xs font-medium text-accent">Built by 3x Founders Who've Scaled Multiple Products Across AI and Web3.</p>
+              <p className="text-xs font-medium text-accent">Built by 3x Founders Who&apos;ve Scaled Multiple Products Across AI and Web3.</p>
             </div>
           </motion.div>
           

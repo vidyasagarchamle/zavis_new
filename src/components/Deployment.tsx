@@ -85,7 +85,7 @@ export default function Deployment() {
             Flexible <span className="text-gradient">Deployment Options</span>
           </h2>
           <p className="text-[color:var(--foreground-secondary)]">
-            Deploy ZAVIS in a way that works for your organization's needs, whether you need cloud-based simplicity, on-premises security, or a hybrid approach that gives you the best of both worlds.
+            Deploy ZAVIS in a way that works for your organization&apos;s needs, whether you need cloud-based simplicity, on-premises security, or a hybrid approach that gives you the best of both worlds.
           </p>
         </motion.div>
 
