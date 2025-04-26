@@ -183,20 +183,10 @@ export default function Hero() {
                     </div>
                     
                     <div className="space-y-1.5">
-                      <div className="flex items-start gap-1">
-                        <div className="w-4 h-4 rounded-full bg-background/70 mt-0.5 flex-shrink-0 border border-border/50"></div>
-                        <p className="text-[8px] sm:text-[10px] leading-tight">"I want to update my plan."</p>
-                      </div>
-                      <div className="flex items-start gap-1">
-                        <div className="w-4 h-4 rounded-full bg-accent/20 mt-0.5 flex-shrink-0 border border-border/50"></div>
-                        <p className="text-[8px] sm:text-[10px] leading-tight text-accent">"Sure! Let's verify your details to proceed."</p>
-                      </div>
-                      <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-border/30">
-                        <div className="flex items-center gap-1">
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent/80"></div>
-                          <p className="text-[7px] sm:text-[8px] text-accent/80">Verification in progress...</p>
-                        </div>
-                        <p className="text-[7px] sm:text-[8px] text-[color:var(--foreground-secondary)]">13:45</p>
+                      <div className="flex flex-col">
+                        <p className="text-[8px] sm:text-[10px] leading-tight"><span className="text-[color:var(--foreground-secondary)]">Customer:</span> "I want to update my plan."</p>
+                        <p className="text-[8px] sm:text-[10px] leading-tight text-accent"><span className="text-[color:var(--foreground-secondary)]">ZAVIS:</span> "Sure! Let's verify your details to proceed."</p>
+                        <p className="text-[8px] sm:text-[10px] mt-2 pt-1.5 border-t border-border/30"><span className="text-[color:var(--foreground-secondary)]">Status:</span> <span className="text-accent">Verified Successfully</span></p>
                       </div>
                     </div>
                   </div>
