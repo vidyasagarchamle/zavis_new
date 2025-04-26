@@ -139,6 +139,11 @@ export default function WhyZavis() {
                 others: true
               },
               {
+                feature: "Integration flexibility",
+                zavis: true,
+                others: false
+              },
+              {
                 feature: "Setup time",
                 zavis: "24 hours",
                 others: "Weeks"

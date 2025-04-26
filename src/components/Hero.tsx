@@ -65,15 +65,20 @@ export default function Hero() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="#demo" className="btn-primary px-4 py-2 text-sm shadow-accent-glow">
-                Get Started
-              </Link>
-              <Link href="#demo" className="btn-secondary px-4 py-2 text-sm flex items-center gap-2 shadow-glow">
+              <a href="https://calendly.com/sagar-webhash" target="_blank" rel="noopener noreferrer" className="btn-primary px-4 py-2 text-sm shadow-accent-glow">
+                Book a Call
+              </a>
+              <div className="btn-secondary px-4 py-2 text-sm flex items-center gap-2 shadow-glow cursor-not-allowed opacity-80">
                 <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"/>
                 </svg>
                 Watch Demo
-              </Link>
+                <svg className="w-3.5 h-3.5 ml-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 11V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                </svg>
+              </div>
             </div>
             
             <div className="pt-0 md:pt-0 -mt-1">
@@ -101,68 +106,66 @@ export default function Hero() {
               <div className="absolute inset-10 sm:inset-12 bg-glass rounded-2xl border border-border shadow-glow backdrop-blur-subtle overflow-hidden">
                 <div className="p-2 sm:p-3">
                   {/* Dashboard header */}
-                  <div className="flex items-center justify-between mb-3 sm:mb-4">
-                    <div className="flex items-center gap-1.5">
-                      <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-accent/20 flex items-center justify-center">
-                        <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1589 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
+                  <div className="flex flex-col mb-3 sm:mb-4">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-accent/20 flex items-center justify-center">
+                          <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1589 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        <div className="text-xs sm:text-sm font-medium">ZAVIS Analytics</div>
                       </div>
-                      <div className="text-xs sm:text-sm font-medium">ZAVIS Analytics</div>
-                    </div>
-                    
-                    <div className="flex items-center gap-1.5 sm:gap-2">
-                      <div className="px-1 sm:px-1.5 py-0.5 bg-accent/10 rounded-full text-[8px] sm:text-[10px] font-medium">Live</div>
-                      <div className="flex gap-1">
-                        <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>
-                        <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>
-                        <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>
+                      <div className="flex items-center gap-1.5">
+                        <div className="px-1 sm:px-1.5 py-0.5 bg-accent/10 rounded-full text-[8px] sm:text-[10px] font-medium">Live</div>
+                        <div className="flex gap-1">
+                          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>
+                          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>
+                          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>
+                        </div>
                       </div>
                     </div>
+                    <p className="text-[7px] sm:text-[9px] text-[color:var(--foreground-secondary)] pl-6 sm:pl-7">See Automation in Action</p>
                   </div>
                   
                   {/* Dashboard metrics */}
                   <div className="grid grid-cols-2 gap-1.5 sm:gap-2 mb-2 sm:mb-3">
                     <div className="bg-background/40 p-1.5 sm:p-2 rounded-lg border border-border/40">
-                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Total Calls Today</p>
+                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Calls Automated Today</p>
                       <p className="text-sm sm:text-base font-bold">1,247</p>
-                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">+12% from yesterday</p>
+                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">+12% vs yesterday</p>
                     </div>
                     
                     <div className="bg-background/40 p-1.5 sm:p-2 rounded-lg border border-border/40">
-                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Escalation Rate</p>
-                      <p className="text-sm sm:text-base font-bold">3.7%</p>
-                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">-2.1% vs industry avg</p>
+                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Success Rate</p>
+                      <p className="text-sm sm:text-base font-bold">91%</p>
+                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">Resolved without human help</p>
                     </div>
                     
                     <div className="bg-background/40 p-1.5 sm:p-2 rounded-lg border border-border/40">
-                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Avg Call Duration</p>
+                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Average Call Duration</p>
                       <p className="text-sm sm:text-base font-bold">2:47</p>
-                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">-32s from last week</p>
+                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">32s faster than last week</p>
                     </div>
                     
                     <div className="bg-background/40 p-1.5 sm:p-2 rounded-lg border border-border/40">
-                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Languages Handled</p>
-                      <p className="text-sm sm:text-base font-bold">16</p>
-                      <div className="flex mt-0.5 gap-1">
-                        <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-accent/40"></span>
-                        <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-accent/30"></span>
-                        <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-accent/20"></span>
-                        <span className="text-[8px] sm:text-[10px]">+13</span>
-                      </div>
+                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Languages Supported</p>
+                      <p className="text-sm sm:text-base font-bold">3</p>
+                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">Arabic, English, and more</p>
                     </div>
                   </div>
 
                   {/* Simplified dashboard - only show on larger screens */}
                   <div className="hidden sm:block bg-background/40 p-1.5 sm:p-2 rounded-lg border border-border/40">
                     <div className="flex items-center justify-between mb-1">
-                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)]">Latest Call</p>
-                      <div className="px-1 py-0.5 bg-accent/20 rounded-full text-[7px] sm:text-[8px]">KYC</div>
+                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)]">Latest Interaction</p>
+                      <div className="px-1 py-0.5 bg-accent/20 rounded-full text-[7px] sm:text-[8px]">Verified</div>
                     </div>
                     
                     <div className="space-y-1">
-                      <div className="w-full h-1 bg-foreground/10 rounded-full"></div>
-                      <div className="w-11/12 h-1 bg-foreground/10 rounded-full"></div>
+                      <p className="text-[7px] sm:text-[9px]">Customer: "I want to update my plan."</p>
+                      <p className="text-[7px] sm:text-[9px]">ZAVIS: "Sure! Let's verify your details to proceed."</p>
+                      <p className="text-[7px] sm:text-[9px]">Status: Verified Successfully</p>
                     </div>
                   </div>
                 </div>

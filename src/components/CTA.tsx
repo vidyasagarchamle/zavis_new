@@ -51,26 +51,25 @@ export default function CTA() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <Link 
-                href="#contact" 
+              <a 
+                href="https://calendly.com/sagar-webhash" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary px-4 py-2 text-sm w-full sm:w-auto"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-                }}
               >
-                Book a Demo
-              </Link>
-              <Link 
-                href="#pricing" 
-                className="btn-secondary px-4 py-2 text-sm w-full sm:w-auto"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
-                }}
-              >
-                View Pricing
-              </Link>
+                Book a Call
+              </a>
+              <div className="btn-secondary px-4 py-2 text-sm w-full sm:w-auto flex items-center justify-center gap-2 cursor-not-allowed opacity-80">
+                <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"/>
+                </svg>
+                Watch Demo
+                <svg className="w-3.5 h-3.5 ml-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 11V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="12" cy="16" r="1" fill="currentColor"/>
+                </svg>
+              </div>
             </motion.div>
             
             <motion.p 

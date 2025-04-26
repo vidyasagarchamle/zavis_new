@@ -129,7 +129,7 @@ export default function Logo({
       
       {showText && (
         <motion.span 
-          className={`text-foreground font-bold ${textSize[size]}`}
+          className={`text-foreground font-bold font-space-grotesk ${textSize[size]}`}
           variants={animated ? textVariants : undefined}
           initial="initial"
           animate={isHovered ? "hover" : "initial"}

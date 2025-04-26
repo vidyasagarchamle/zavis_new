@@ -40,7 +40,7 @@ export default function RootLayout({
           <div className="absolute inset-0 bg-grid opacity-20 z-0"></div>
           <div className="absolute inset-0 bg-noise opacity-30 z-0"></div>
           <main className="relative z-10">
-            {children}
+        {children}
           </main>
         </div>
       </body>

@@ -72,10 +72,10 @@ export default function HowItWorks() {
   }
 
   const whyChoosePoints = [
-    "Built by 3x founders behind platforms with 3M+ users",
-    "Deployed in real-world telecom test environments",
-    "Focused on GCC markets — supports Arabic + English",
-    "Built for compliance-heavy industries from day one"
+    "Instant responses to incoming calls — no wait times",
+    "Understands human language & handles complex conversations",
+    "Multilingual support for both Arabic and English",
+    "Built for complete compliance with GCC regulations"
   ]
 
   return (
@@ -151,7 +151,7 @@ export default function HowItWorks() {
           <div className="flex flex-col md:flex-row gap-8 items-start">
             <div className="flex-1">
               <h3 className="text-2xl font-bold mb-4">Why Teams Are Excited About ZAVIS</h3>
-              <p className="text-foreground-secondary mb-6">Even before our public launch.</p>
+              <p className="text-foreground-secondary mb-6">From startups to enterprise support teams, ZAVIS is already sparking interest where it matters.</p>
             </div>
             
             <div className="flex-1">
@@ -191,14 +191,21 @@ export default function HowItWorks() {
           <p className="text-foreground-secondary max-w-lg mx-auto mb-8">
             See how much time, money, and stress you can save with voice automation.
           </p>
-          <Link href="#contact" className="btn-primary px-4 py-2 text-sm flex items-center gap-2 mx-auto inline-flex">
+          <a 
+            href="https://calendly.com/sagar-webhash" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="btn-primary px-6 py-2.5 text-sm flex items-center gap-2 mx-auto inline-flex hover:opacity-90 transition-all cursor-pointer"
+            style={{ pointerEvents: 'auto', zIndex: 50, position: 'relative' }}
+            onClick={(e) => { e.stopPropagation(); window.open('https://calendly.com/sagar-webhash', '_blank'); }}
+          >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M16.2396 9.1438C16.8291 9.40522 17.2931 9.78791 17.6559 10.2347C18.0187 10.6815 18.2625 11.1773 18.3885 11.6731C18.5145 12.1689 18.5178 12.6647 18.4007 13.1195C18.2837 13.5743 18.0495 13.9878 17.698 14.3478C17.3466 14.7077 16.917 14.996 16.4105 15.183C15.904 15.3701 15.344 15.4426 14.7839 15.405C14.2239 15.3674 13.6865 15.2218 13.2138 14.9847C12.741 14.7477 12.3509 14.4282 12.0771 14.0562" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               <path d="M10.689 9.22382C10.1257 8.88806 9.47915 8.73833 8.82584 8.78818C8.17252 8.83804 7.56171 9.08451 7.07159 9.4862C6.58147 9.88788 6.24218 10.4258 6.1084 11.02C5.97461 11.6141 6.05374 12.2307 6.3318 12.7729C6.60986 13.3151 7.07171 13.7517 7.6429 14.0191C8.21409 14.2865 8.86401 14.3684 9.48898 14.2525C10.114 14.1367 10.6822 13.8292 11.1114 13.3759C11.5405 12.9226 11.8089 12.3473 11.8777 11.734" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.8214 2.48697 15.5291 3.33782 17L2.5 21.5L7 20.6622C8.47087 21.513 10.1786 22 12 22Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            Book a Free Call Audit
-          </Link>
+            Get Started
+          </a>
         </motion.div>
       </div>
     </section>

@@ -18,6 +18,6 @@ export default function Home() {
       <WhyZavis />
       <CTA />
       <Footer />
-    </main>
+      </main>
   )
 }

@@ -214,23 +214,21 @@ export default function UseCases() {
             </div>
 
             {/* CTA inside the card */}
-            <motion.div 
-              className="mt-6 text-center pt-4 border-t border-border/30"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <Link 
-                href="#contact" 
-                className="btn-primary px-4 py-2 text-sm inline-flex items-center"
+            <div className="mt-6 text-center pt-4 border-t border-border/30">
+              <a 
+                href="https://calendly.com/sagar-webhash" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary px-6 py-2.5 text-sm inline-flex items-center justify-center hover:opacity-90 transition-all cursor-pointer"
+                style={{ pointerEvents: 'auto', zIndex: 50, position: 'relative' }}
+                onClick={(e) => { e.stopPropagation(); window.open('https://calendly.com/sagar-webhash', '_blank'); }}
               >
                 Launch Your AI Agent in 24 Hours
                 <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </Link>
-            </motion.div>
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>
