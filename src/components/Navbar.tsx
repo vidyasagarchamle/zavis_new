@@ -54,16 +54,15 @@ export default function Navbar() {
         </div>
         
         <div className="hidden md:block">
-          <Link 
-            href="#contact" 
-            className="btn-primary px-4 py-2 text-sm"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+          <a 
+            href="https://calendly.com/sagar-webhash" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary px-4 py-2 text-sm hover:opacity-90 transition-all cursor-pointer"
+            style={{ pointerEvents: 'auto', zIndex: 50, position: 'relative' }}
           >
             Book a Call
-          </Link>
+          </a>
         </div>
         
         {/* Mobile menu button */}
@@ -113,17 +112,16 @@ export default function Navbar() {
                 {item.name}
               </MobileNavLink>
             ))}
-            <Link 
-              href="#contact" 
-              className="btn-primary w-full text-center px-4 py-2 text-sm"
-              onClick={(e) => {
-                e.preventDefault();
-                setMobileMenuOpen(false);
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
+            <a 
+              href="https://calendly.com/sagar-webhash"
+              target="_blank"
+              rel="noopener noreferrer" 
+              className="btn-primary w-full text-center px-4 py-2 text-sm hover:opacity-90 transition-all cursor-pointer"
+              style={{ pointerEvents: 'auto', zIndex: 50, position: 'relative' }}
+              onClick={() => setMobileMenuOpen(false)}
             >
               Book a Call
-            </Link>
+            </a>
           </div>
         </motion.div>
       )}
