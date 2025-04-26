@@ -92,7 +92,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative mt-2 md:mt-0"
           >
-            <div className="relative w-full max-w-[280px] sm:max-w-sm lg:max-w-md aspect-square mx-auto">
+            <div className="relative w-full max-w-[340px] sm:max-w-lg lg:max-w-xl aspect-square mx-auto">
               <motion.div 
                 className="absolute inset-0 rounded-full bg-accent/5 animate-pulse"
                 animate={{ 
@@ -103,69 +103,129 @@ export default function Hero() {
               <div className="absolute inset-8 rounded-full bg-accent/10 animate-float"></div>
               
               {/* Dashboard mockup */}
-              <div className="absolute inset-10 sm:inset-12 bg-glass rounded-2xl border border-border shadow-glow backdrop-blur-subtle overflow-hidden">
-                <div className="p-2 sm:p-3">
+              <div className="absolute inset-8 sm:inset-10 bg-glass rounded-2xl border border-border shadow-glow backdrop-blur-subtle overflow-hidden">
+                <div className="p-2.5 sm:p-4">
                   {/* Dashboard header */}
-                  <div className="flex flex-col mb-3 sm:mb-4">
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-accent/20 flex items-center justify-center">
-                          <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <div className="flex flex-col mb-3 sm:mb-5">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-accent/20 flex items-center justify-center">
+                          <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1589 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         </div>
-                        <div className="text-xs sm:text-sm font-medium">ZAVIS Analytics</div>
+                        <div className="text-sm sm:text-base font-semibold tracking-tight">ZAVIS Analytics</div>
                       </div>
-                      <div className="flex items-center gap-1.5">
-                        <div className="px-1 sm:px-1.5 py-0.5 bg-accent/10 rounded-full text-[8px] sm:text-[10px] font-medium">Live</div>
-                        <div className="flex gap-1">
-                          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>
-                          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>
-                          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-foreground/30"></div>
+                      <div className="flex items-center gap-2">
+                        <div className="px-2 py-0.5 bg-accent/15 rounded-full text-[9px] sm:text-[11px] font-medium text-accent">Live</div>
+                        <div className="flex gap-1.5">
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-foreground/30"></div>
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-foreground/30"></div>
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-foreground/30"></div>
                         </div>
                       </div>
                     </div>
-                    <p className="text-[7px] sm:text-[9px] text-[color:var(--foreground-secondary)] pl-6 sm:pl-7">See Automation in Action</p>
+                    <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] pl-8 sm:pl-9">See Automation in Action</p>
                   </div>
                   
                   {/* Dashboard metrics */}
-                  <div className="grid grid-cols-2 gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-                    <div className="bg-background/40 p-1.5 sm:p-2 rounded-lg border border-border/40">
-                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Calls Automated Today</p>
-                      <p className="text-sm sm:text-base font-bold">1,247</p>
-                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">+12% vs yesterday</p>
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-3">
+                    <div className="bg-background/50 p-2 sm:p-3 rounded-lg border border-border/50 hover:border-border/80 transition-colors">
+                      <p className="text-[9px] sm:text-[11px] text-[color:var(--foreground-secondary)] mb-1">Calls Automated Today</p>
+                      <p className="text-base sm:text-lg font-bold">1,247</p>
+                      <p className="text-[8px] sm:text-[10px] text-accent mt-1 flex items-center">
+                        <svg className="w-2.5 h-2.5 mr-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M7 17L17 7M17 7H8M17 7V16" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        +12% vs yesterday
+                      </p>
                     </div>
                     
-                    <div className="bg-background/40 p-1.5 sm:p-2 rounded-lg border border-border/40">
-                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Success Rate</p>
-                      <p className="text-sm sm:text-base font-bold">91%</p>
-                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">Resolved without human help</p>
+                    <div className="bg-background/50 p-2 sm:p-3 rounded-lg border border-border/50 hover:border-border/80 transition-colors">
+                      <p className="text-[9px] sm:text-[11px] text-[color:var(--foreground-secondary)] mb-1">Success Rate</p>
+                      <p className="text-base sm:text-lg font-bold">91%</p>
+                      <p className="text-[8px] sm:text-[10px] text-accent mt-1 flex items-center">
+                        <svg className="w-2.5 h-2.5 mr-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M5 13L9 17L19 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        Resolved without human help
+                      </p>
                     </div>
                     
-                    <div className="bg-background/40 p-1.5 sm:p-2 rounded-lg border border-border/40">
-                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Average Call Duration</p>
-                      <p className="text-sm sm:text-base font-bold">2:47</p>
-                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">32s faster than last week</p>
+                    <div className="bg-background/50 p-2 sm:p-3 rounded-lg border border-border/50 hover:border-border/80 transition-colors">
+                      <p className="text-[9px] sm:text-[11px] text-[color:var(--foreground-secondary)] mb-1">Average Call Duration</p>
+                      <p className="text-base sm:text-lg font-bold">2:47</p>
+                      <p className="text-[8px] sm:text-[10px] text-accent mt-1 flex items-center">
+                        <svg className="w-2.5 h-2.5 mr-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M7 17L17 7M17 7H8M17 7V16" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        32s faster than last week
+                      </p>
                     </div>
                     
-                    <div className="bg-background/40 p-1.5 sm:p-2 rounded-lg border border-border/40">
-                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)] mb-0.5">Languages Supported</p>
-                      <p className="text-sm sm:text-base font-bold">3</p>
-                      <p className="text-[8px] sm:text-[10px] text-accent mt-0.5">Arabic, English, and more</p>
+                    <div className="bg-background/50 p-2 sm:p-3 rounded-lg border border-border/50 hover:border-border/80 transition-colors">
+                      <p className="text-[9px] sm:text-[11px] text-[color:var(--foreground-secondary)] mb-1">Languages Supported</p>
+                      <p className="text-base sm:text-lg font-bold">3</p>
+                      <p className="text-[8px] sm:text-[10px] text-accent mt-1 flex items-center">
+                        <svg className="w-2.5 h-2.5 mr-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        Arabic, English, and more
+                      </p>
                     </div>
                   </div>
 
-                  {/* Simplified dashboard - only show on larger screens */}
-                  <div className="hidden sm:block bg-background/40 p-1.5 sm:p-2 rounded-lg border border-border/40">
-                    <div className="flex items-center justify-between mb-1">
-                      <p className="text-[8px] sm:text-[10px] text-[color:var(--foreground-secondary)]">Latest Interaction</p>
-                      <div className="px-1 py-0.5 bg-accent/20 rounded-full text-[7px] sm:text-[8px]">Verified</div>
+                  {/* Latest conversation section - show on all screens */}
+                  <div className="bg-background/50 p-2 sm:p-3 rounded-lg border border-border/50 mb-2 sm:mb-3">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <p className="text-[9px] sm:text-[11px] font-medium text-[color:var(--foreground-secondary)]">Latest Interaction</p>
+                      <div className="px-1.5 py-0.5 bg-accent/20 rounded-full text-[8px] sm:text-[9px] font-medium text-accent">Verified</div>
                     </div>
                     
-                    <div className="space-y-1">
-                      <p className="text-[7px] sm:text-[9px]">Customer: "I want to update my plan."</p>
-                      <p className="text-[7px] sm:text-[9px]">ZAVIS: "Sure! Let's verify your details to proceed."</p>
-                      <p className="text-[7px] sm:text-[9px]">Status: Verified Successfully</p>
+                    <div className="space-y-1.5">
+                      <div className="flex items-start gap-1">
+                        <div className="w-4 h-4 rounded-full bg-background/70 mt-0.5 flex-shrink-0 border border-border/50"></div>
+                        <p className="text-[8px] sm:text-[10px] leading-tight">"I want to update my plan."</p>
+                      </div>
+                      <div className="flex items-start gap-1">
+                        <div className="w-4 h-4 rounded-full bg-accent/20 mt-0.5 flex-shrink-0 border border-border/50"></div>
+                        <p className="text-[8px] sm:text-[10px] leading-tight text-accent">"Sure! Let's verify your details to proceed."</p>
+                      </div>
+                      <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-border/30">
+                        <div className="flex items-center gap-1">
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent/80"></div>
+                          <p className="text-[7px] sm:text-[8px] text-accent/80">Verification in progress...</p>
+                        </div>
+                        <p className="text-[7px] sm:text-[8px] text-[color:var(--foreground-secondary)]">13:45</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Quick Actions Bar - Fixed positioning at bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-background/30 backdrop-blur-sm px-2 sm:px-3 py-1.5 sm:py-2 border-t border-border/40 flex justify-between items-center">
+                    <div className="flex space-x-2 sm:space-x-3">
+                      <button className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-accent/15 flex items-center justify-center hover:bg-accent/25 transition-colors">
+                        <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M12 7a3 3 0 100 6 3 3 0 000-6z" fill="currentColor" strokeWidth="0"/>
+                        </svg>
+                      </button>
+                      <button className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-accent/15 flex items-center justify-center hover:bg-accent/25 transition-colors">
+                        <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M22 6l-10 7L2 6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </button>
+                      <button className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-accent/15 flex items-center justify-center hover:bg-accent/25 transition-colors">
+                        <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M12 20.5a8.5 8.5 0 100-17 8.5 8.5 0 000 17z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M12 8v4l3 3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <div className="bg-accent/15 h-1.5 w-1.5 rounded-full animate-pulse"></div>
+                      <p className="text-[8px] sm:text-[9px] text-accent">All systems operational</p>
                     </div>
                   </div>
                 </div>
