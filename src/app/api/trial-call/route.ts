@@ -46,10 +46,14 @@ const initializeGoogleSheet = async () => {
 // Save trial call data to Google Sheets
 const saveToGoogleSheet = async (data: RequestBody, callSid: string) => {
   try {
+    console.log('Initializing Google Sheet connection...');
     const doc = await initializeGoogleSheet();
+    console.log('Google Sheet connected successfully.');
+    
     const sheet = doc.sheetsByIndex[0]; // Use the first sheet
     
     if (!sheet) {
+      console.error('No sheet found at index 0');
       throw new Error('Sheet not found');
     }
     
@@ -57,35 +61,45 @@ const saveToGoogleSheet = async (data: RequestBody, callSid: string) => {
     try {
       await sheet.loadHeaderRow();
       console.log('Sheet headers:', sheet.headerValues);
-    } catch (headerError) {
-      console.log('No headers found, sheet might be empty');
+    } catch (_) {
+      console.log('No headers found, sheet might be empty. Creating headers...');
+      // If no headers, create them
+      try {
+        await sheet.setHeaderRow([
+          'Name', 'Email', 'Phone', 'Agent Type', 'AgentId', 
+          'AgentPhoneNumberId', 'CallSid', 'Timestamp'
+        ]);
+        console.log('Headers created successfully');
+      } catch (headerError) {
+        console.error('Failed to create headers:', headerError);
+      }
     }
     
     // Get agent name from the mapping
     const agentName = AGENT_NAMES[data.agentId] || 'Unknown Agent Type';
     console.log('Agent ID:', data.agentId, 'Agent Name:', agentName);
     
-    // Add a new row with the trial call data - try different column name variations
-    await sheet.addRow({
+    // Add a new row with the trial call data
+    const rowData = {
       Name: data.name,
       Email: data.email,
       Phone: data.phone,
-      "Agent Type": agentName, // Try with space
-      AgentType: agentName,    // Try camelCase
-      "agent type": agentName, // Try lowercase with space
-      agent_type: agentName,   // Try snake_case
-      "Agent": agentName,      // Try just Agent
+      "Agent Type": agentName,
       AgentId: data.agentId,
       AgentPhoneNumberId: data.agentPhoneNumberId,
       CallSid: callSid,
       Timestamp: new Date().toISOString(),
-    });
+    };
+    
+    console.log('Attempting to add row with data:', JSON.stringify(rowData));
+    await sheet.addRow(rowData);
     
     console.log('Row added successfully');
     return true;
   } catch (error) {
     console.error('Failed to save to Google Sheet:', error);
-    throw new Error('Failed to save user data');
+    // Don't throw an error, just return false to allow the call to continue even if sheet fails
+    return false;
   }
 };
 
@@ -147,10 +161,15 @@ export async function POST(req: NextRequest) {
     // Initiate call via ElevenLabs API
     const callResult = await makeElevenLabsCall(data);
     
-    // Save data to Google Sheets
-    await saveToGoogleSheet(data, callResult.callSid || 'unknown');
+    // Save data to Google Sheets, but don't let it block call success
+    try {
+      await saveToGoogleSheet(data, callResult.callSid || 'unknown');
+    } catch (sheetError) {
+      console.error('Google Sheet error, but continuing with call:', sheetError);
+      // Don't throw error here, we want the call to succeed even if the sheet fails
+    }
     
-    // Return success response
+    // Return success response for the call
     return NextResponse.json({
       success: true,
       message: 'Call initiated successfully',

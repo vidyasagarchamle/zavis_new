@@ -141,13 +141,25 @@ export default function LiveDemo() {
         throw new Error(data.message || 'Something went wrong')
       }
       
-      setSuccess(true)
-      setName("")
-      setEmail("")
-      setPhone("")
+      // If call was initiated but data save failed, still show success
+      if (data.success) {
+        setSuccess(true)
+        setName("")
+        setEmail("")
+        setPhone("")
+      } else {
+        throw new Error(data.message || 'Failed to initiate call')
+      }
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to initiate call. Please try again.';
-      setError(errorMessage);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to initiate call. Please try again.'
+      // If the error message is specifically about saving user data but call was initiated
+      if (errorMessage.includes('save user data')) {
+        // Show success anyway since the call might have been placed
+        setSuccess(true)
+        console.warn('Call initiated but failed to save data:', errorMessage)
+      } else {
+        setError(errorMessage)
+      }
     } finally {
       setIsSubmitting(false)
     }
