@@ -565,7 +565,9 @@ export default function LiveDemo() {
                         )}
                       </motion.button>
                       
-                      <p className="text-[8px] sm:text-[10px] mt-2 pt-1.5 border-t border-border/30"><span className="text-[color:var(--foreground-secondary)]">Status:</span> <span className="text-accent">Verified Successfully</span></p>
+                      <p className="text-xs text-center text-[color:var(--foreground-secondary)] mt-3">
+                        By clicking &quot;Call Me Now&quot;, you agree to our Terms of Service and Privacy Policy.
+                      </p>
                     </form>
                   </div>
                 )}
