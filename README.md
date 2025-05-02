@@ -2,6 +2,11 @@
 
 A modern, high-conversion SaaS landing page for ZAVIS, an AI Voice Agent platform that automates customer calls for onboarding, support, and verification.
 
+## Deployment Status
+
+Last deployed: May 2, 2024
+Deployed with: Vercel
+
 ## 🚀 Features
 
 - Modern, minimal design with black & white theme
