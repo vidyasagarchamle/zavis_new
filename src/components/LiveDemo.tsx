@@ -2,6 +2,173 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, useAnimation, useInView } from 'framer-motion'
+import { Listbox } from '@headlessui/react'
+
+// Country codes data with full names
+type CountryCode = {
+  code: string;
+  country: string;
+  name: string;
+  flag: string;
+};
+
+// Country codes data for dropdown
+const countryCodes: CountryCode[] = [
+  // Popular and major countries first for better UX
+  { code: '+1', country: 'US', name: 'United States', flag: '🇺🇸' },
+  { code: '+44', country: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
+  { code: '+91', country: 'IN', name: 'India', flag: '🇮🇳' },
+  { code: '+971', country: 'AE', name: 'United Arab Emirates', flag: '🇦🇪' },
+  { code: '+86', country: 'CN', name: 'China', flag: '🇨🇳' },
+  { code: '+1', country: 'CA', name: 'Canada', flag: '🇨🇦' },
+  { code: '+61', country: 'AU', name: 'Australia', flag: '🇦🇺' },
+  { code: '+49', country: 'DE', name: 'Germany', flag: '🇩🇪' },
+  { code: '+33', country: 'FR', name: 'France', flag: '🇫🇷' },
+  { code: '+81', country: 'JP', name: 'Japan', flag: '🇯🇵' },
+  { code: '+7', country: 'RU', name: 'Russia', flag: '🇷🇺' },
+  { code: '+55', country: 'BR', name: 'Brazil', flag: '🇧🇷' },
+  { code: '+52', country: 'MX', name: 'Mexico', flag: '🇲🇽' },
+  { code: '+966', country: 'SA', name: 'Saudi Arabia', flag: '🇸🇦' },
+  { code: '+65', country: 'SG', name: 'Singapore', flag: '🇸🇬' },
+  { code: '+82', country: 'KR', name: 'South Korea', flag: '🇰🇷' },
+  { code: '+27', country: 'ZA', name: 'South Africa', flag: '🇿🇦' },
+  { code: '+34', country: 'ES', name: 'Spain', flag: '🇪🇸' },
+  { code: '+39', country: 'IT', name: 'Italy', flag: '🇮🇹' },
+  { code: '+90', country: 'TR', name: 'Turkey', flag: '🇹🇷' },
+  
+  // Rest of the world alphabetically
+  { code: '+93', country: 'AF', name: 'Afghanistan', flag: '🇦🇫' },
+  { code: '+355', country: 'AL', name: 'Albania', flag: '🇦🇱' },
+  { code: '+213', country: 'DZ', name: 'Algeria', flag: '🇩🇿' },
+  { code: '+376', country: 'AD', name: 'Andorra', flag: '🇦🇩' },
+  { code: '+244', country: 'AO', name: 'Angola', flag: '🇦🇴' },
+  { code: '+54', country: 'AR', name: 'Argentina', flag: '🇦🇷' },
+  { code: '+374', country: 'AM', name: 'Armenia', flag: '🇦🇲' },
+  { code: '+43', country: 'AT', name: 'Austria', flag: '🇦🇹' },
+  { code: '+994', country: 'AZ', name: 'Azerbaijan', flag: '🇦🇿' },
+  { code: '+973', country: 'BH', name: 'Bahrain', flag: '🇧🇭' },
+  { code: '+880', country: 'BD', name: 'Bangladesh', flag: '🇧🇩' },
+  { code: '+375', country: 'BY', name: 'Belarus', flag: '🇧🇾' },
+  { code: '+32', country: 'BE', name: 'Belgium', flag: '🇧🇪' },
+  { code: '+501', country: 'BZ', name: 'Belize', flag: '🇧🇿' },
+  { code: '+229', country: 'BJ', name: 'Benin', flag: '🇧🇯' },
+  { code: '+975', country: 'BT', name: 'Bhutan', flag: '🇧🇹' },
+  { code: '+591', country: 'BO', name: 'Bolivia', flag: '🇧🇴' },
+  { code: '+387', country: 'BA', name: 'Bosnia and Herzegovina', flag: '🇧🇦' },
+  { code: '+267', country: 'BW', name: 'Botswana', flag: '🇧🇼' },
+  { code: '+673', country: 'BN', name: 'Brunei', flag: '🇧🇳' },
+  { code: '+359', country: 'BG', name: 'Bulgaria', flag: '🇧🇬' },
+  { code: '+226', country: 'BF', name: 'Burkina Faso', flag: '🇧🇫' },
+  { code: '+257', country: 'BI', name: 'Burundi', flag: '🇧🇮' },
+  { code: '+855', country: 'KH', name: 'Cambodia', flag: '🇰🇭' },
+  { code: '+237', country: 'CM', name: 'Cameroon', flag: '🇨🇲' },
+  { code: '+238', country: 'CV', name: 'Cape Verde', flag: '🇨🇻' },
+  { code: '+236', country: 'CF', name: 'Central African Republic', flag: '🇨🇫' },
+  { code: '+235', country: 'TD', name: 'Chad', flag: '🇹🇩' },
+  { code: '+56', country: 'CL', name: 'Chile', flag: '🇨🇱' },
+  { code: '+57', country: 'CO', name: 'Colombia', flag: '🇨🇴' },
+  { code: '+242', country: 'CG', name: 'Congo', flag: '🇨🇬' },
+  { code: '+506', country: 'CR', name: 'Costa Rica', flag: '🇨🇷' },
+  { code: '+385', country: 'HR', name: 'Croatia', flag: '🇭🇷' },
+  { code: '+53', country: 'CU', name: 'Cuba', flag: '🇨🇺' },
+  { code: '+357', country: 'CY', name: 'Cyprus', flag: '🇨🇾' },
+  { code: '+420', country: 'CZ', name: 'Czech Republic', flag: '🇨🇿' },
+  { code: '+45', country: 'DK', name: 'Denmark', flag: '🇩🇰' },
+  { code: '+253', country: 'DJ', name: 'Djibouti', flag: '🇩🇯' },
+  { code: '+1809', country: 'DO', name: 'Dominican Republic', flag: '🇩🇴' },
+  { code: '+593', country: 'EC', name: 'Ecuador', flag: '🇪🇨' },
+  { code: '+20', country: 'EG', name: 'Egypt', flag: '🇪🇬' },
+  { code: '+503', country: 'SV', name: 'El Salvador', flag: '🇸🇻' },
+  { code: '+240', country: 'GQ', name: 'Equatorial Guinea', flag: '🇬🇶' },
+  { code: '+291', country: 'ER', name: 'Eritrea', flag: '🇪🇷' },
+  { code: '+372', country: 'EE', name: 'Estonia', flag: '🇪🇪' },
+  { code: '+251', country: 'ET', name: 'Ethiopia', flag: '🇪🇹' },
+  { code: '+679', country: 'FJ', name: 'Fiji', flag: '🇫🇯' },
+  { code: '+358', country: 'FI', name: 'Finland', flag: '🇫🇮' },
+  { code: '+241', country: 'GA', name: 'Gabon', flag: '🇬🇦' },
+  { code: '+220', country: 'GM', name: 'Gambia', flag: '🇬🇲' },
+  { code: '+995', country: 'GE', name: 'Georgia', flag: '🇬🇪' },
+  { code: '+233', country: 'GH', name: 'Ghana', flag: '🇬🇭' },
+  { code: '+30', country: 'GR', name: 'Greece', flag: '🇬🇷' },
+  { code: '+502', country: 'GT', name: 'Guatemala', flag: '🇬🇹' },
+  { code: '+224', country: 'GN', name: 'Guinea', flag: '🇬🇳' },
+  { code: '+852', country: 'HK', name: 'Hong Kong', flag: '🇭🇰' },
+  { code: '+36', country: 'HU', name: 'Hungary', flag: '🇭🇺' },
+  { code: '+354', country: 'IS', name: 'Iceland', flag: '🇮🇸' },
+  { code: '+62', country: 'ID', name: 'Indonesia', flag: '🇮🇩' },
+  { code: '+98', country: 'IR', name: 'Iran', flag: '🇮🇷' },
+  { code: '+964', country: 'IQ', name: 'Iraq', flag: '🇮🇶' },
+  { code: '+353', country: 'IE', name: 'Ireland', flag: '🇮🇪' },
+  { code: '+972', country: 'IL', name: 'Israel', flag: '🇮🇱' },
+  { code: '+962', country: 'JO', name: 'Jordan', flag: '🇯🇴' },
+  { code: '+7', country: 'KZ', name: 'Kazakhstan', flag: '🇰🇿' },
+  { code: '+254', country: 'KE', name: 'Kenya', flag: '🇰🇪' },
+  { code: '+965', country: 'KW', name: 'Kuwait', flag: '🇰🇼' },
+  { code: '+996', country: 'KG', name: 'Kyrgyzstan', flag: '🇰🇬' },
+  { code: '+856', country: 'LA', name: 'Laos', flag: '🇱🇦' },
+  { code: '+371', country: 'LV', name: 'Latvia', flag: '🇱🇻' },
+  { code: '+961', country: 'LB', name: 'Lebanon', flag: '🇱🇧' },
+  { code: '+231', country: 'LR', name: 'Liberia', flag: '🇱🇷' },
+  { code: '+218', country: 'LY', name: 'Libya', flag: '🇱🇾' },
+  { code: '+370', country: 'LT', name: 'Lithuania', flag: '🇱🇹' },
+  { code: '+352', country: 'LU', name: 'Luxembourg', flag: '🇱🇺' },
+  { code: '+60', country: 'MY', name: 'Malaysia', flag: '🇲🇾' },
+  { code: '+960', country: 'MV', name: 'Maldives', flag: '🇲🇻' },
+  { code: '+356', country: 'MT', name: 'Malta', flag: '🇲🇹' },
+  { code: '+230', country: 'MU', name: 'Mauritius', flag: '🇲🇺' },
+  { code: '+373', country: 'MD', name: 'Moldova', flag: '🇲🇩' },
+  { code: '+212', country: 'MA', name: 'Morocco', flag: '🇲🇦' },
+  { code: '+258', country: 'MZ', name: 'Mozambique', flag: '🇲🇿' },
+  { code: '+95', country: 'MM', name: 'Myanmar', flag: '🇲🇲' },
+  { code: '+264', country: 'NA', name: 'Namibia', flag: '🇳🇦' },
+  { code: '+977', country: 'NP', name: 'Nepal', flag: '🇳🇵' },
+  { code: '+31', country: 'NL', name: 'Netherlands', flag: '🇳🇱' },
+  { code: '+64', country: 'NZ', name: 'New Zealand', flag: '🇳🇿' },
+  { code: '+505', country: 'NI', name: 'Nicaragua', flag: '🇳🇮' },
+  { code: '+227', country: 'NE', name: 'Niger', flag: '🇳🇪' },
+  { code: '+234', country: 'NG', name: 'Nigeria', flag: '🇳🇬' },
+  { code: '+47', country: 'NO', name: 'Norway', flag: '🇳🇴' },
+  { code: '+968', country: 'OM', name: 'Oman', flag: '🇴🇲' },
+  { code: '+92', country: 'PK', name: 'Pakistan', flag: '🇵🇰' },
+  { code: '+970', country: 'PS', name: 'Palestine', flag: '🇵🇸' },
+  { code: '+507', country: 'PA', name: 'Panama', flag: '🇵🇦' },
+  { code: '+675', country: 'PG', name: 'Papua New Guinea', flag: '🇵🇬' },
+  { code: '+595', country: 'PY', name: 'Paraguay', flag: '🇵🇾' },
+  { code: '+51', country: 'PE', name: 'Peru', flag: '🇵🇪' },
+  { code: '+63', country: 'PH', name: 'Philippines', flag: '🇵🇭' },
+  { code: '+48', country: 'PL', name: 'Poland', flag: '🇵🇱' },
+  { code: '+351', country: 'PT', name: 'Portugal', flag: '🇵🇹' },
+  { code: '+974', country: 'QA', name: 'Qatar', flag: '🇶🇦' },
+  { code: '+40', country: 'RO', name: 'Romania', flag: '🇷🇴' },
+  { code: '+250', country: 'RW', name: 'Rwanda', flag: '🇷🇼' },
+  { code: '+221', country: 'SN', name: 'Senegal', flag: '🇸🇳' },
+  { code: '+381', country: 'RS', name: 'Serbia', flag: '🇷🇸' },
+  { code: '+421', country: 'SK', name: 'Slovakia', flag: '🇸🇰' },
+  { code: '+386', country: 'SI', name: 'Slovenia', flag: '🇸🇮' },
+  { code: '+252', country: 'SO', name: 'Somalia', flag: '🇸🇴' },
+  { code: '+211', country: 'SS', name: 'South Sudan', flag: '🇸🇸' },
+  { code: '+94', country: 'LK', name: 'Sri Lanka', flag: '🇱🇰' },
+  { code: '+249', country: 'SD', name: 'Sudan', flag: '🇸🇩' },
+  { code: '+46', country: 'SE', name: 'Sweden', flag: '🇸🇪' },
+  { code: '+41', country: 'CH', name: 'Switzerland', flag: '🇨🇭' },
+  { code: '+963', country: 'SY', name: 'Syria', flag: '🇸🇾' },
+  { code: '+886', country: 'TW', name: 'Taiwan', flag: '🇹🇼' },
+  { code: '+992', country: 'TJ', name: 'Tajikistan', flag: '🇹🇯' },
+  { code: '+255', country: 'TZ', name: 'Tanzania', flag: '🇹🇿' },
+  { code: '+66', country: 'TH', name: 'Thailand', flag: '🇹🇭' },
+  { code: '+228', country: 'TG', name: 'Togo', flag: '🇹🇬' },
+  { code: '+216', country: 'TN', name: 'Tunisia', flag: '🇹🇳' },
+  { code: '+993', country: 'TM', name: 'Turkmenistan', flag: '🇹🇲' },
+  { code: '+256', country: 'UG', name: 'Uganda', flag: '🇺🇬' },
+  { code: '+380', country: 'UA', name: 'Ukraine', flag: '🇺🇦' },
+  { code: '+598', country: 'UY', name: 'Uruguay', flag: '🇺🇾' },
+  { code: '+998', country: 'UZ', name: 'Uzbekistan', flag: '🇺🇿' },
+  { code: '+58', country: 'VE', name: 'Venezuela', flag: '🇻🇪' },
+  { code: '+84', country: 'VN', name: 'Vietnam', flag: '🇻🇳' },
+  { code: '+967', country: 'YE', name: 'Yemen', flag: '🇾🇪' },
+  { code: '+260', country: 'ZM', name: 'Zambia', flag: '🇿🇲' },
+  { code: '+263', country: 'ZW', name: 'Zimbabwe', flag: '🇿🇼' },
+]
 
 type Agent = {
   id: string;
@@ -67,6 +234,8 @@ export default function LiveDemo() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
+  const [countryCode, setCountryCode] = useState(countryCodes[0])
+  const [countrySearch, setCountrySearch] = useState("")
   const [selectedAgentId, setSelectedAgentId] = useState(agents[0].id)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState("")
@@ -129,7 +298,7 @@ export default function LiveDemo() {
         body: JSON.stringify({
           name,
           email,
-          phone,
+          phone: `${countryCode.code}${phone.startsWith(countryCode.code) ? phone.substring(countryCode.code.length) : phone}`,
           agentId: selectedAgent.id,
           agentPhoneNumberId: selectedAgent.phoneNumberId
         }),
@@ -170,8 +339,8 @@ export default function LiveDemo() {
   }
   
   const isValidPhoneNumber = (phone: string) => {
-    // Basic phone validation - allow different formats
-    return /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/.test(phone.replace(/\s/g, ''))
+    // Basic phone validation - allow different formats without country code
+    return /^\d{5,15}$/.test(phone.replace(/[\s\-\(\)]/g, ''))
   }
 
   return (
@@ -480,26 +649,80 @@ export default function LiveDemo() {
                         <label htmlFor="phone" className="block text-sm font-medium mb-1.5">
                           Phone Number
                         </label>
-                        <div className="relative">
-                          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                            <svg className="w-5 h-5 text-[color:var(--foreground-secondary)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M16.5 21.75H15.75C15.3358 21.75 15 21.4142 15 21V18.75C15 18.3358 15.3358 18 15.75 18H16.5C17.7426 18 18.75 19.0074 18.75 20.25C18.75 21.0784 18.3284 21.75 16.5 21.75Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M16.5 18V15.75C16.5 14.9216 15.8284 14.25 15 14.25C14.1716 14.25 13.5 14.9216 13.5 15.75V18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M12.75 21.75H8.25C5.14873 21.75 2.25 18.8513 2.25 15.75V9.75C2.25 9.33579 2.58579 9 3 9H5.25C6.07843 9 6.75 9.67157 6.75 10.5V11.25C6.75 12.0784 7.42157 12.75 8.25 12.75H11.25C12.0784 12.75 12.75 12.0784 12.75 11.25V10.5C12.75 9.67157 13.4216 9 14.25 9H16.5C16.9142 9 17.25 9.33579 17.25 9.75V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M12.75 18V15.75C12.75 14.9216 12.0784 14.25 11.25 14.25C10.4216 14.25 9.75 14.9216 9.75 15.75V18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M9.75 21.75H9C8.58579 21.75 8.25 21.4142 8.25 21V18.75C8.25 18.3358 8.58579 18 9 18H9.75C10.9926 18 12 19.0074 12 20.25C12 21.0784 11.5784 21.75 9.75 21.75Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M12.75 9V5.25C12.75 4.42157 12.0784 3.75 11.25 3.75H8.25C7.42157 3.75 6.75 4.42157 6.75 5.25V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
+                        <div className="flex items-stretch">
+                          <Listbox value={countryCode} onChange={setCountryCode}>
+                            <div className="relative">
+                              <Listbox.Button className="relative w-24 flex items-center justify-between gap-1 pl-3 pr-2 py-2.5 bg-background/50 border border-[color:var(--border)] rounded-l-lg border-r-0 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors">
+                                <span className="mr-1">{countryCode.flag}</span>
+                                <span className="font-medium">{countryCode.code}</span>
+                                <svg className="w-4 h-4 text-[color:var(--foreground-secondary)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                              </Listbox.Button>
+                              <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-72 overflow-auto rounded-lg bg-background py-1 border border-[color:var(--glass-border)] shadow-lg focus:outline-none">
+                                <div className="sticky top-0 bg-background p-2 border-b border-[color:var(--glass-border)]">
+                                  <input
+                                    type="text"
+                                    value={countrySearch}
+                                    onChange={(e) => setCountrySearch(e.target.value)}
+                                    placeholder="Search country..."
+                                    className="w-full px-3 py-2 bg-background/50 border border-[color:var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
+                                    onClick={(e) => e.stopPropagation()}
+                                  />
+                                </div>
+                                {countryCodes
+                                  .filter(country => 
+                                    country.name.toLowerCase().includes(countrySearch.toLowerCase()) || 
+                                    country.code.includes(countrySearch)
+                                  )
+                                  .map((country) => (
+                                    <Listbox.Option
+                                      key={`${country.code}-${country.country}`}
+                                      value={country}
+                                      className={({ active, selected }) => `
+                                        relative cursor-pointer select-none py-2 px-4 ${
+                                          active ? 'bg-accent/10' : ''
+                                        } ${
+                                          selected ? 'bg-accent/20' : ''
+                                        }
+                                      `}
+                                    >
+                                      {({ selected }) => (
+                                        <div className="flex items-center gap-2">
+                                          <span className="text-lg">{country.flag}</span>
+                                          <div className="flex flex-col">
+                                            <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                                              {country.name}
+                                            </span>
+                                            <span className="text-xs text-[color:var(--foreground-secondary)]">
+                                              {country.code}
+                                            </span>
+                                          </div>
+                                          {selected && (
+                                            <span className="absolute inset-y-0 right-4 flex items-center text-accent">
+                                              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                              </svg>
+                                            </span>
+                                          )}
+                                        </div>
+                                      )}
+                                    </Listbox.Option>
+                                  ))}
+                              </Listbox.Options>
+                            </div>
+                          </Listbox>
+                          <div className="relative flex-grow">
+                            <input
+                              id="phone"
+                              type="tel"
+                              value={phone}
+                              onChange={(e) => setPhone(e.target.value)}
+                              placeholder="Enter your phone number"
+                              className="w-full pl-4 pr-4 py-2.5 bg-background/50 border border-[color:var(--border)] rounded-r-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
+                              required
+                            />
                           </div>
-                          <input
-                            id="phone"
-                            type="tel"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            placeholder="Enter your phone number with country code"
-                            className="w-full pl-11 pr-4 py-2.5 bg-background/50 border border-[color:var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
-                            required
-                          />
                         </div>
                       </div>
                       
