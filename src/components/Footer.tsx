@@ -19,6 +19,9 @@ export default function Footer() {
               <p className="text-[color:var(--foreground-secondary)] text-sm max-w-xs">
                 AI voice agents that transform customer communication, available 24/7.
               </p>
+              <p className="text-[color:var(--foreground-secondary)] text-xs mt-4">
+                HASH INFORMATION TECHNOLOGY CO. L.L.C, Dubai
+              </p>
             </div>
 
             {/* Contact */}
@@ -28,20 +31,20 @@ export default function Footer() {
                 <ul className="space-y-2">
                   <li>
                     <a 
-                      href="mailto:hid@zavis.xyz"
+                      href="mailto:support@zavis.ai"
                       className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
                     >
-                      hid@zavis.xyz
+                      support@zavis.ai
                     </a>
                   </li>
                   <li>
                     <a 
-                      href="https://t.me/w3hidayath"
+                      href="https://zavis.ai"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
                     >
-                      Telegram: @w3hidayath
+                      zavis.ai
                     </a>
                   </li>
                 </ul>
@@ -49,7 +52,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="pt-8 mt-8 border-t border-border flex justify-center">
+          <div className="pt-8 mt-8 border-t border-border flex flex-col items-center">
             <p className="text-[color:var(--foreground-secondary)] text-sm">
               &copy; {currentYear} ZAVIS. All rights reserved.
             </p>
