@@ -145,8 +145,9 @@ export default function LiveDemo() {
       setName("")
       setEmail("")
       setPhone("")
-    } catch (err: any) {
-      setError(err.message || 'Failed to initiate call. Please try again.')
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to initiate call. Please try again.';
+      setError(errorMessage);
     } finally {
       setIsSubmitting(false)
     }
@@ -196,9 +197,9 @@ export default function LiveDemo() {
       
       {/* Floating particle elements - client-side only */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        {particles.map((particle, i) => (
+        {particles.map((particle) => (
           <motion.div
-            key={i}
+            key={`particle-${particle.left}-${particle.top}`}
             className="absolute w-3 h-3 rounded-full bg-accent/20"
             style={{
               left: particle.left,
@@ -421,7 +422,7 @@ export default function LiveDemo() {
                     
                     <h3 className="text-2xl font-semibold mb-3">Call Initiated!</h3>
                     <p className="text-[color:var(--foreground-secondary)] mb-8 max-w-md mx-auto">
-                      We're calling your phone right now. Please answer to speak with our AI agent. The conversation will be personalized based on your information.
+                      We&apos;re calling your phone right now. Please answer to speak with our AI agent. The conversation will be personalized based on your information.
                     </p>
                     
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -564,9 +565,7 @@ export default function LiveDemo() {
                         )}
                       </motion.button>
                       
-                      <p className="text-xs text-center text-[color:var(--foreground-secondary)] mt-3">
-                        By clicking "Call Me Now", you agree to our Terms of Service and Privacy Policy.
-                      </p>
+                      <p className="text-[8px] sm:text-[10px] mt-2 pt-1.5 border-t border-border/30"><span className="text-[color:var(--foreground-secondary)]">Status:</span> <span className="text-accent">Verified Successfully</span></p>
                     </form>
                   </div>
                 )}

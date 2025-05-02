@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { useRef } from 'react'
-import Link from 'next/link'
 
 export default function UseCases() {
   const containerRef = useRef<HTMLDivElement>(null)
