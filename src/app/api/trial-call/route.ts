@@ -26,6 +26,24 @@ type RequestBody = {
 // Initialize Google Sheets
 const initializeGoogleSheet = async () => {
   try {
+    console.log('Starting Google Sheets initialization with credentials:', {
+      email: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.client_email,
+      project_id: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.project_id,
+      private_key_length: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key?.length || 0,
+      sheet_id: GOOGLE_SHEET_ID
+    });
+    
+    // Check if the private key is properly formatted
+    if (!GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key) {
+      console.error('Private key is missing from credentials');
+      throw new Error('Google Sheets private key is missing');
+    }
+    
+    if (!GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key.includes('BEGIN PRIVATE KEY')) {
+      console.error('Private key is not properly formatted');
+      throw new Error('Google Sheets private key is malformed');
+    }
+    
     const serviceAccountAuth = new JWT({
       email: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.client_email,
       key: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key,
@@ -34,12 +52,17 @@ const initializeGoogleSheet = async () => {
       ],
     });
 
+    console.log('JWT created, loading Google Sheet:', GOOGLE_SHEET_ID);
     const doc = new GoogleSpreadsheet(GOOGLE_SHEET_ID, serviceAccountAuth);
+    
+    console.log('Loading Google Sheet info...');
     await doc.loadInfo();
+    
+    console.log('Google Sheet loaded successfully:', doc.title);
     return doc;
   } catch (error) {
     console.error('Failed to initialize Google Sheet:', error);
-    throw new Error('Failed to connect to Google Sheets');
+    throw new Error(`Failed to connect to Google Sheets: ${error instanceof Error ? error.message : String(error)}`);
   }
 };
 

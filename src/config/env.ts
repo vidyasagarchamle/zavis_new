@@ -18,19 +18,63 @@ const { serverRuntimeConfig } = getConfig() || {
   }
 };
 
+// Log config availability but not actual values for security
+console.log('Environment configuration loaded:', {
+  ELEVENLABS_API_KEY: !!serverRuntimeConfig.ELEVENLABS_API_KEY,
+  GOOGLE_SHEET_ID: !!serverRuntimeConfig.GOOGLE_SHEET_ID,
+  GOOGLE_SERVICE_ACCOUNT_PROJECT_ID: !!serverRuntimeConfig.GOOGLE_SERVICE_ACCOUNT_PROJECT_ID,
+  GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_ID: !!serverRuntimeConfig.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY_ID,
+  GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY: !!serverRuntimeConfig.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY,
+  GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL: !!serverRuntimeConfig.GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL,
+});
+
 // ElevenLabs API Key
 export const ELEVENLABS_API_KEY = serverRuntimeConfig.ELEVENLABS_API_KEY || '';
 
 // Google Sheets
 export const GOOGLE_SHEET_ID = serverRuntimeConfig.GOOGLE_SHEET_ID || '';
 
-// Function to properly format the private key
+// Function to properly format the private key for all environments
 const formatPrivateKey = (key: string) => {
-  if (!key) return '';
-  // Remove any extra quotes from the beginning and end
-  key = key.replace(/^['"]|['"]$/g, '');
-  // Replace literal \n with actual newlines
-  return key.replace(/\\n/g, '\n');
+  if (!key) {
+    console.warn('Google Sheets private key is empty');
+    return '';
+  }
+  
+  try {
+    // Handle possible JSON stringification in environment variables
+    if (key.startsWith('"') && key.endsWith('"')) {
+      key = JSON.parse(key);
+    }
+    
+    // Remove any extra quotes from the beginning and end
+    key = key.replace(/^['"]|['"]$/g, '');
+    
+    // For Vercel and other platforms that don't preserve newlines
+    key = key.replace(/\\n/g, '\n');
+    
+    // Ensure the key is properly formatted with begin/end markers
+    if (!key.includes('-----BEGIN PRIVATE KEY-----')) {
+      console.warn('Private key appears to be missing BEGIN marker');
+      // Try to fix if it's just missing markers but has the content
+      if (!key.startsWith('-----BEGIN')) {
+        key = '-----BEGIN PRIVATE KEY-----\n' + key;
+      }
+    }
+    
+    if (!key.includes('-----END PRIVATE KEY-----')) {
+      console.warn('Private key appears to be missing END marker');
+      // Try to fix if it's just missing markers but has the content
+      if (!key.endsWith('-----END')) {
+        key = key + '\n-----END PRIVATE KEY-----';
+      }
+    }
+    
+    return key;
+  } catch (error) {
+    console.error('Error formatting private key:', error);
+    return key; // Return the original in case of errors
+  }
 };
 
 // Google Service Account Credentials
