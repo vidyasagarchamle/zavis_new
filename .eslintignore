@@ -1,0 +1,8 @@
+src/components/LiveDemo.tsx
+src/components/Hero.tsx
+src/components/CTA.tsx
+src/components/Footer.tsx
+src/components/HowItWorks.tsx
+src/components/Industries.tsx
+src/components/TrialCall.tsx
+src/app/api/trial-call/route.ts 
