@@ -21,21 +21,40 @@ export async function GET(req: NextRequest) {
   }
   
   try {
-    // Log environment details
+    // Log environment details - focusing on essential variables
     const credentialInfo = {
-      sheet_id: GOOGLE_SHEET_ID,
-      project_id: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.project_id,
-      private_key_id: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key_id,
+      // Essential variables - these must be present
+      sheet_id_present: !!GOOGLE_SHEET_ID,
+      client_email_present: !!GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.client_email,
+      private_key_present: !!GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key,
       private_key_length: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key?.length || 0,
-      client_email: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.client_email,
-      private_key_starts_with: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key?.substring(0, 20) + '...' || 'missing',
+      
+      // Check private key format
       has_begin_key: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key?.includes('BEGIN PRIVATE KEY') || false,
       has_end_key: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key?.includes('END PRIVATE KEY') || false,
+      has_newlines: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key?.includes('\n') || false,
+      
+      // Optional variables
+      project_id_present: !!GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.project_id,
+      private_key_id_present: !!GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key_id,
     };
     
     console.log('Testing with credentials:', credentialInfo);
     
-    // Initialize the JWT auth client
+    // Verify essential variables are present
+    if (!GOOGLE_SHEET_ID) {
+      throw new Error('GOOGLE_SHEET_ID is missing');
+    }
+    
+    if (!GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.client_email) {
+      throw new Error('GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL is missing');
+    }
+    
+    if (!GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key) {
+      throw new Error('GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY is missing');
+    }
+    
+    // Initialize the JWT auth client using only the essential fields
     const serviceAccountAuth = new JWT({
       email: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.client_email,
       key: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS.private_key,
@@ -67,7 +86,7 @@ export async function GET(req: NextRequest) {
       
       // Add a test row to verify write access
       try {
-        const newRow = await sheet.addRow({
+        await sheet.addRow({
           Name: 'Test User',
           Email: 'test@example.com',
           Phone: '+1234567890',
@@ -87,7 +106,7 @@ export async function GET(req: NextRequest) {
       documentTitle: doc.title,
       sheets,
       headers,
-      credentialInfo
+      credentials: credentialInfo
     });
     
   } catch (error) {
