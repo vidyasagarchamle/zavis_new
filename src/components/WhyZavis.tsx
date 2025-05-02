@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { motion, useAnimation, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 export default function WhyZavis() {
@@ -74,9 +74,8 @@ export default function WhyZavis() {
   ]
 
   return (
-    <section id="whyZavis" className="py-20 relative" ref={containerRef}>
-      {/* Background decorations */}
-      <div className="absolute inset-0 bg-grid opacity-10 z-0"></div>
+    <section id="whyZavis" className="py-16 bg-transparent relative" ref={containerRef}>
+      {/* Global background is now used instead */}
       
       <div className="container mx-auto px-4">
         {/* Section header */}

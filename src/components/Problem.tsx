@@ -59,7 +59,7 @@ export default function Problem() {
   ]
 
   return (
-    <section id="problem" className="py-20 bg-background-secondary relative" ref={containerRef}>
+    <section id="problem" className="py-16 bg-transparent relative" ref={containerRef}>
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-16">

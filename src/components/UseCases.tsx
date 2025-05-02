@@ -80,9 +80,8 @@ export default function UseCases() {
   }
 
   return (
-    <section id="useCases" className="py-16 bg-background-secondary relative" ref={containerRef}>
-      {/* Background decorations */}
-      <div className="absolute inset-0 bg-grid opacity-10 z-0"></div>
+    <section id="useCases" className="py-16 bg-transparent relative" ref={containerRef}>
+      {/* Global background is now used instead */}
       
       <div className="container mx-auto px-4">
         {/* Section header */}

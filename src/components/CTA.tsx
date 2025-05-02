@@ -5,9 +5,8 @@ import { useRef } from 'react'
 
 export default function CTA() {
   return (
-    <section className="section relative overflow-hidden">
-      {/* Background effects - more subtle */}
-      <div className="absolute inset-0 bg-grid opacity-5 z-0"></div>
+    <section className="section py-16 bg-transparent relative overflow-hidden">
+      {/* Global background is now used instead */}
       
       {/* Reduced opacity and blur for better aesthetics */}
       <motion.div 

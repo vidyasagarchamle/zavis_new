@@ -19,7 +19,7 @@ export default function Footer() {
                 AI voice agents that transform customer communication, available 24/7.
               </p>
               <p className="text-[color:var(--foreground-secondary)] text-xs mt-4">
-                HASH INFORMATION TECHNOLOGY CO. L.L.C, Dubai, UAE
+                HASH INFORMATION TECHNOLOGY CO. L.L.C, Dubai, UAE.
               </p>
             </div>
 
@@ -56,7 +56,6 @@ export default function Footer() {
               &copy; {currentYear} ZAVIS. All rights reserved.
             </p>
             <p className="text-[color:var(--foreground-secondary)] text-xs mt-2">
-              HASH INFORMATION TECHNOLOGY CO. L.L.C, Dubai, UAE
             </p>
           </div>
         </div>

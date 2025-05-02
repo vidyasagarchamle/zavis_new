@@ -175,37 +175,11 @@ export default function LiveDemo() {
   }
 
   return (
-    <section id="liveDemo" ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-grid opacity-10 z-0"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent z-0"></div>
+    <section id="liveDemo" ref={sectionRef} className="relative py-16 pt-14 md:pt-16 overflow-hidden bg-transparent">
+      {/* Global background is now used instead */}
       
-      {/* Animated decorative elements */}
-      <motion.div 
-        className="absolute -bottom-20 -right-20 w-[600px] h-[600px] rounded-full bg-accent-gradient opacity-5 blur-[120px]"
-        animate={{ 
-          scale: [1, 1.1, 1],
-          opacity: [0.05, 0.07, 0.05]
-        }}
-        transition={{ 
-          repeat: Infinity, 
-          duration: 8,
-          ease: "easeInOut"
-        }}
-      />
-      
-      <motion.div 
-        className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-accent-gradient opacity-5 blur-[100px]"
-        animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.05, 0.08, 0.05]
-        }}
-        transition={{ 
-          repeat: Infinity, 
-          duration: 10,
-          ease: "easeInOut"
-        }}
-      />
+      {/* Subtle visual separator */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
       
       {/* Floating particle elements - client-side only */}
       <div className="absolute inset-0 z-0 overflow-hidden">

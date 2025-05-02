@@ -26,8 +26,8 @@ export default function Navbar() {
     { name: 'Home', href: '/' },
     { name: 'Problem', href: '#problem' },
     { name: 'How It Works', href: '#howItWorks' },
-    { name: 'Use Cases', href: '#useCases' },
     { name: 'Live Demo', href: '#liveDemo' },
+    { name: 'Use Cases', href: '#useCases' },
     { name: 'Why ZAVIS', href: '#whyZavis' },
   ];
 

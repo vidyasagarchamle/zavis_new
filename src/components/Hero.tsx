@@ -4,17 +4,8 @@ import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-[80vh] md:min-h-[90vh] lg:min-h-screen flex items-start md:items-center overflow-hidden pt-12 md:pt-16">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-grid opacity-20 z-0"></div>
-      <div className="absolute top-0 left-0 right-0 h-[300px] md:h-[500px] bg-gradient-to-b from-accent/10 to-transparent opacity-70 z-0"></div>
-      
-      {/* Animated gradient orbs */}
-      <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-accent-gradient opacity-5 blur-[100px] animate-float"></div>
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-accent-gradient opacity-5 blur-[80px] transform -translate-x-1/2 translate-y-1/3"></div>
-
-      {/* Noise texture overlay */}
-      <div className="absolute inset-0 bg-noise opacity-30 z-0"></div>
+    <section id="hero" className="relative bg-transparent min-h-[80vh] md:min-h-[90vh] lg:min-h-screen flex items-start md:items-center overflow-hidden pt-12 md:pt-16">
+      {/* All background elements are now in GlobalBackground component */}
       
       <div className="container mx-auto px-4 py-6 md:py-12 lg:py-16 z-10 relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-start lg:items-center">

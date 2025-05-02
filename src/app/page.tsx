@@ -8,6 +8,7 @@ import CTA from '@/components/CTA'
 import Footer from '@/components/Footer'
 import LiveDemo from '@/components/LiveDemo'
 import { Metadata } from 'next'
+import GlobalBackground from '@/components/ui/GlobalBackground'
 
 export const metadata: Metadata = {
   title: 'ZAVIS - AI Voice Agent Platform',
@@ -16,15 +17,20 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-transparent">
+      {/* Global background for the entire page */}
+      <GlobalBackground />
+      
       <Navbar />
-      <Hero />
-      <Problem />
-      <HowItWorks />
-      <UseCases />
-      <LiveDemo />
-      <WhyZavis />
-      <CTA />
+      <div className="relative">
+        <Hero />
+        <Problem />
+        <HowItWorks />
+        <LiveDemo />
+        <UseCases />
+        <WhyZavis />
+        <CTA />
+      </div>
       <Footer />
     </main>
   )
