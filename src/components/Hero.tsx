@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import Link from "next/link"
 
 export default function Hero() {
   return (
@@ -65,7 +64,7 @@ export default function Hero() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href="https://calendly.com/sagar-webhash" target="_blank" rel="noopener noreferrer" className="btn-primary px-4 py-2 text-sm shadow-accent-glow">
+              <a href="https://calendly.com/zavis-support/30min" target="_blank" rel="noopener noreferrer" className="btn-primary px-4 py-2 text-sm shadow-accent-glow">
                 Book a Call
               </a>
               <a href="#liveDemo" className="btn-secondary px-4 py-2 text-sm flex items-center gap-2 shadow-glow">

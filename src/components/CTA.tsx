@@ -1,7 +1,7 @@
 "use client"
 
-import { motion } from 'framer-motion'
-import Link from 'next/link'
+import { motion, useAnimation, useInView } from 'framer-motion'
+import { useRef } from 'react'
 
 export default function CTA() {
   return (
@@ -52,7 +52,7 @@ export default function CTA() {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <a 
-                href="https://calendly.com/sagar-webhash" 
+                href="https://calendly.com/zavis-support/30min" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary px-4 py-2 text-sm w-full sm:w-auto"

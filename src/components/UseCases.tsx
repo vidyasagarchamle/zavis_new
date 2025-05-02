@@ -215,12 +215,12 @@ export default function UseCases() {
             {/* CTA inside the card */}
             <div className="mt-6 text-center pt-4 border-t border-border/30">
               <a 
-                href="https://calendly.com/sagar-webhash" 
+                href="https://calendly.com/zavis-support/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary px-6 py-2.5 text-sm inline-flex items-center justify-center hover:opacity-90 transition-all cursor-pointer"
+                className="btn-primary px-6 py-2.5 text-sm flex items-center gap-2 mx-auto inline-flex hover:opacity-90 transition-all cursor-pointer"
                 style={{ pointerEvents: 'auto', zIndex: 50, position: 'relative' }}
-                onClick={(e) => { e.stopPropagation(); window.open('https://calendly.com/sagar-webhash', '_blank'); }}
+                onClick={(e) => { e.stopPropagation(); window.open('https://calendly.com/zavis-support/30min', '_blank'); }}
               >
                 Launch Your AI Agent in 24 Hours
                 <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

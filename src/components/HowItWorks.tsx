@@ -1,8 +1,7 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { motion, useAnimation, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import Link from 'next/link'
 
 export default function HowItWorks() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -192,12 +191,12 @@ export default function HowItWorks() {
             See how much time, money, and stress you can save with voice automation.
           </p>
           <a 
-            href="https://calendly.com/sagar-webhash" 
+            href="https://calendly.com/zavis-support/30min" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="btn-primary px-6 py-2.5 text-sm flex items-center gap-2 mx-auto inline-flex hover:opacity-90 transition-all cursor-pointer"
             style={{ pointerEvents: 'auto', zIndex: 50, position: 'relative' }}
-            onClick={(e) => { e.stopPropagation(); window.open('https://calendly.com/sagar-webhash', '_blank'); }}
+            onClick={(e) => { e.stopPropagation(); window.open('https://calendly.com/zavis-support/30min', '_blank'); }}
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M16.2396 9.1438C16.8291 9.40522 17.2931 9.78791 17.6559 10.2347C18.0187 10.6815 18.2625 11.1773 18.3885 11.6731C18.5145 12.1689 18.5178 12.6647 18.4007 13.1195C18.2837 13.5743 18.0495 13.9878 17.698 14.3478C17.3466 14.7077 16.917 14.996 16.4105 15.183C15.904 15.3701 15.344 15.4426 14.7839 15.405C14.2239 15.3674 13.6865 15.2218 13.2138 14.9847C12.741 14.7477 12.3509 14.4282 12.0771 14.0562" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>

@@ -55,12 +55,11 @@ export default function Navbar() {
         </div>
         
         <div className="hidden md:block">
-          <a 
-            href="https://calendly.com/sagar-webhash" 
+          <a
+            href="https://calendly.com/zavis-support/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary px-4 py-2 text-sm hover:opacity-90 transition-all cursor-pointer"
-            style={{ pointerEvents: 'auto', zIndex: 50, position: 'relative' }}
+            className="btn-primary py-1.5 px-4 text-xs"
           >
             Book a Call
           </a>
@@ -113,12 +112,11 @@ export default function Navbar() {
                 {item.name}
               </MobileNavLink>
             ))}
-            <a 
-              href="https://calendly.com/sagar-webhash"
+            <a
+              href="https://calendly.com/zavis-support/30min"
+              className="block px-4 py-2 hover:bg-accent-transparent transition-colors"
               target="_blank"
-              rel="noopener noreferrer" 
-              className="btn-primary w-full text-center px-4 py-2 text-sm hover:opacity-90 transition-all cursor-pointer"
-              style={{ pointerEvents: 'auto', zIndex: 50, position: 'relative' }}
+              rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
             >
               Book a Call
