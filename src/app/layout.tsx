@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk, Outfit } from 'next/font/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -40,9 +41,10 @@ export default function RootLayout({
           <div className="absolute inset-0 bg-grid opacity-20 z-0"></div>
           <div className="absolute inset-0 bg-noise opacity-30 z-0"></div>
           <main className="relative z-10">
-        {children}
+            {children}
           </main>
         </div>
+        <GoogleAnalytics gaId="G-EPR5PE5RVV" />
       </body>
     </html>
   )
