@@ -21,6 +21,7 @@ type RequestBody = {
   phone: string;
   agentId: string;
   agentPhoneNumberId: string;
+  industry?: string; // Optional for backwards compatibility
 };
 
 // Initialize Google Sheets
@@ -90,7 +91,7 @@ const saveToGoogleSheet = async (data: RequestBody, callSid: string) => {
       try {
         await sheet.setHeaderRow([
           'Name', 'Email', 'Phone', 'Agent Type', 'AgentId', 
-          'AgentPhoneNumberId', 'CallSid', 'Timestamp'
+          'AgentPhoneNumberId', 'CallSid', 'Industry', 'Timestamp'
         ]);
         console.log('Headers created successfully');
       } catch (headerError) {
@@ -111,6 +112,7 @@ const saveToGoogleSheet = async (data: RequestBody, callSid: string) => {
       AgentId: data.agentId,
       AgentPhoneNumberId: data.agentPhoneNumberId,
       CallSid: callSid,
+      Industry: data.industry || 'Not Specified',
       Timestamp: new Date().toISOString(),
     };
     
@@ -140,8 +142,8 @@ const makeElevenLabsCall = async (data: RequestBody) => {
         agent_phone_number_id: data.agentPhoneNumberId,
         to_number: data.phone,
         conversation_initiation_client_data: {
-          user_name: data.name,
-          user_email: data.email,
+          name: data.name,
+          industry: data.industry || ''
         },
       }),
     });
@@ -181,6 +183,9 @@ export async function POST(req: NextRequest) {
     }
     data.phone = formattedPhone;
     
+    // Log industry for debugging
+    console.log('Industry selected:', data.industry || 'None');
+    
     // Initiate call via ElevenLabs API
     const callResult = await makeElevenLabsCall(data);
     
@@ -197,6 +202,7 @@ export async function POST(req: NextRequest) {
       success: true,
       message: 'Call initiated successfully',
       callSid: callResult.callSid,
+      industryUsed: data.industry || 'None'
     });
   } catch (error: any) {
     console.error('Error in trial-call API:', error);
