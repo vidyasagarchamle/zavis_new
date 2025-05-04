@@ -213,7 +213,7 @@ const agents: Agent[] = [
       },
       {
         id: "banking",
-        name: "Banking & Financial Services",
+        name: "Banking",
         description: "Account help, fraud support"
       }
     ]
@@ -300,7 +300,6 @@ export default function LiveDemo() {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
   const [particles, setParticles] = useState<Array<{left: string, top: string}>>([])
-  const [showIndustries, setShowIndustries] = useState(false)
   
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: false, amount: 0.3 })
@@ -324,21 +323,10 @@ export default function LiveDemo() {
   // Reset selected industry when agent changes
   useEffect(() => {
     setSelectedIndustryId(null);
-    setShowIndustries(false);
   }, [selectedAgentId]);
 
   // Get the currently selected agent
   const selectedAgent = agents.find(agent => agent.id === selectedAgentId) || agents[0];
-
-  // Toggle industry selection visibility
-  const toggleIndustries = (agentId: string) => {
-    if (selectedAgentId === agentId) {
-      setShowIndustries(!showIndustries);
-    } else {
-      setSelectedAgentId(agentId);
-      setShowIndustries(true);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -459,7 +447,7 @@ export default function LiveDemo() {
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
-          className="text-center max-w-4xl mx-auto mb-12"
+          className="text-center max-w-4xl mx-auto mb-10"
           initial="hidden"
           animate={controls}
           variants={{
@@ -486,8 +474,8 @@ export default function LiveDemo() {
           </p>
         </motion.div>
         
-        <div className="flex flex-col lg:flex-row items-stretch justify-center max-w-6xl mx-auto gap-4 lg:gap-5">
-          {/* Agent Cards */}
+        <div className="flex flex-col lg:flex-row items-stretch justify-center max-w-6xl mx-auto gap-6 lg:gap-8">
+          {/* Agent Selection */}
           <motion.div 
             className="w-full lg:w-1/2 flex flex-col"
             initial="hidden"
@@ -504,107 +492,49 @@ export default function LiveDemo() {
               }
             }}
           >
-            <h3 className="text-xl md:text-2xl font-semibold mb-3">Select an AI Voice Agent</h3>
+            <h3 className="text-xl md:text-2xl font-semibold mb-5">Select an AI Voice Agent</h3>
             
-            <div className="space-y-2.5 flex-grow">
+            <div className="space-y-7">
               {agents.map((agent) => (
-                <div 
-                  key={agent.id}
-                  className={`relative p-3 rounded-xl border transition-all duration-300 hover:shadow-lg cursor-pointer ${
-                    selectedAgentId === agent.id 
-                      ? 'border-accent bg-accent/5' 
-                      : 'border-[color:var(--glass-border)] bg-glass hover:border-accent/40'
-                  }`}
-                  onClick={() => toggleIndustries(agent.id)}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="bg-accent/10 h-10 w-10 rounded-full flex items-center justify-center flex-shrink-0">
-                      {agent.icon}
+                <div key={agent.id}>
+                  {/* Agent Header as simple heading */}
+                  <div className="flex items-center gap-2 mb-3.5">
+                    <div className="bg-accent/10 h-7 w-7 rounded-full flex items-center justify-center flex-shrink-0">
+                      <div className="scale-75">{agent.icon}</div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-base font-medium mb-0.5">{agent.name}</h4>
-                      <p className="text-xs text-[color:var(--foreground-secondary)]">{agent.description}</p>
-                    </div>
-                    <div className="ml-2 flex-shrink-0">
-                      <div className={`h-5 w-5 rounded-full flex items-center justify-center border-2 ${
-                        selectedAgentId === agent.id 
-                          ? 'border-accent' 
-                          : 'border-[color:var(--foreground-secondary)]'
-                      }`}>
-                        {selectedAgentId === agent.id && (
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            className="h-3 w-3 rounded-full bg-accent"
-                          />
-                        )}
-                      </div>
-                    </div>
+                    <h4 className="text-base font-medium">{agent.name}</h4>
                   </div>
                   
-                  {/* Industry Selection - Only show for the selected agent and when showIndustries is true */}
-                  {selectedAgentId === agent.id && showIndustries && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      transition={{ duration: 0.3 }}
-                      className="mt-3 pt-3 border-t border-[color:var(--glass-border)]"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <p className="text-xs font-medium">Select an industry:</p>
-                        <span className="text-xs text-accent">* Required</span>
-                      </div>
-                      <div className="grid grid-cols-1 gap-1.5">
-                        {agent.industries.map((industry) => (
-                          <button
-                            key={industry.id}
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation(); // Prevent agent selection
-                              setSelectedIndustryId(industry.id);
-                            }}
-                            className={`
-                              p-2 text-left rounded-lg border transition-all
-                              ${selectedIndustryId === industry.id 
-                                ? 'border-accent bg-accent/10' 
-                                : 'border-[color:var(--glass-border)] bg-background/50 hover:border-accent/40'
-                              }
-                            `}
-                          >
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <h5 className="text-sm font-medium">{industry.name}</h5>
-                                <p className="text-xs text-[color:var(--foreground-secondary)]">{industry.description}</p>
-                              </div>
-                              <div className={`h-4 w-4 rounded-full flex items-center justify-center border-2 ${
-                                selectedIndustryId === industry.id 
-                                  ? 'border-accent' 
-                                  : 'border-[color:var(--foreground-secondary)]'
-                              }`}>
-                                {selectedIndustryId === industry.id && (
-                                  <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    className="h-2 w-2 rounded-full bg-accent"
-                                  />
-                                )}
-                              </div>
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                  
-                  {selectedAgentId === agent.id && (
-                    <motion.div 
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"
-                      layoutId="activeAgent"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
+                  {/* Industry Selection - No circle indicators, with descriptions */}
+                  <div className="grid grid-cols-3 gap-3">
+                    {agent.industries.map((industry) => (
+                      <motion.button
+                        key={industry.id}
+                        type="button"
+                        onClick={() => {
+                          setSelectedAgentId(agent.id);
+                          setSelectedIndustryId(industry.id);
+                        }}
+                        className={`
+                          py-3 px-4 rounded-lg border group cursor-pointer h-full
+                          ${(selectedAgentId === agent.id && selectedIndustryId === industry.id)
+                            ? 'border-accent bg-accent/10 shadow-sm' 
+                            : 'border-[color:var(--glass-border)] bg-glass hover:border-accent/40 hover:bg-accent/5'
+                          }
+                        `}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                      >
+                        <div className="flex flex-col h-full">
+                          <div className="font-medium text-sm mb-1.5">{industry.name}</div>
+                          <p className="text-xs text-[color:var(--foreground-secondary)] line-clamp-2">
+                            {industry.description}
+                          </p>
+                        </div>
+                      </motion.button>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
