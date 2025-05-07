@@ -1,6 +1,7 @@
 "use client"
 
 import Logo from "./Logo";
+import Link from "next/link";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -55,8 +56,24 @@ export default function Footer() {
             <p className="text-[color:var(--foreground-secondary)] text-sm">
               &copy; {currentYear} ZAVIS. All rights reserved.
             </p>
-            <p className="text-[color:var(--foreground-secondary)] text-xs mt-2">
-            </p>
+            <div className="flex space-x-4 mt-2">
+              <a 
+                href="/privacy-policy" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[color:var(--foreground-secondary)] hover:text-foreground text-xs"
+              >
+                Privacy Policy
+              </a>
+              <a 
+                href="/terms-of-service" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[color:var(--foreground-secondary)] hover:text-foreground text-xs"
+              >
+                Terms of Service
+              </a>
+            </div>
           </div>
         </div>
       </div>
