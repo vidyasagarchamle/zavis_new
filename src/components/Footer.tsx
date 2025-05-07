@@ -13,7 +13,6 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Logo and brief description */}
             <div className="col-span-1">
-              <h3 className="font-medium mb-4">ZAVIS</h3>
               <div className="mb-4">
                 <Logo size="sm" animated={false} />
               </div>
