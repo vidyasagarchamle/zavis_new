@@ -10,9 +10,10 @@ export default function Footer() {
     <footer className="py-12 bg-background border-t border-border">
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Logo and brief description */}
             <div className="col-span-1">
+              <h3 className="font-medium mb-4">ZAVIS</h3>
               <div className="mb-4">
                 <Logo size="sm" animated={false} />
               </div>
@@ -26,58 +27,54 @@ export default function Footer() {
 
             {/* Contact */}
             <div className="col-span-1">
-              <div>
-                <h3 className="font-medium mb-4">Contact</h3>
-                <ul className="space-y-2">
-                  <li>
-                    <a 
-                      href="mailto:support@zavis.ai"
-                      className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
-                    >
-                      support@zavis.ai
-                    </a>
-                  </li>
-                  <li>
-                    <a 
-                      href="https://zavis.ai"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
-                    >
-                      zavis.ai
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <h3 className="font-medium mb-4">Contact</h3>
+              <ul className="space-y-2">
+                <li>
+                  <a 
+                    href="mailto:support@zavis.ai"
+                    className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
+                  >
+                    support@zavis.ai
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://zavis.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
+                  >
+                    zavis.ai
+                  </a>
+                </li>
+              </ul>
             </div>
             
             {/* Legal */}
             <div className="col-span-1">
-              <div>
-                <h3 className="font-medium mb-4">Legal</h3>
-                <ul className="space-y-2">
-                  <li>
-                    <a
-                      href="/privacy-policy"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
-                    >
-                      Privacy Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/terms-of-service"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
-                    >
-                      Terms & Conditions
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <h3 className="font-medium mb-4">Legal</h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
+                  >
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/terms-of-service"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
+                  >
+                    Terms & Conditions
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
 
