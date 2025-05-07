@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="py-12 bg-background border-t border-border">
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {/* Logo and brief description */}
             <div className="col-span-1">
               <div className="mb-4">
@@ -25,7 +25,7 @@ export default function Footer() {
             </div>
 
             {/* Contact */}
-            <div className="col-span-1 md:flex md:justify-end">
+            <div className="col-span-1">
               <div>
                 <h3 className="font-medium mb-4">Contact</h3>
                 <ul className="space-y-2">
@@ -50,30 +50,41 @@ export default function Footer() {
                 </ul>
               </div>
             </div>
+            
+            {/* Legal */}
+            <div className="col-span-1">
+              <div>
+                <h3 className="font-medium mb-4">Legal</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <a
+                      href="/privacy-policy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
+                    >
+                      Privacy Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/terms-of-service"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[color:var(--foreground-secondary)] hover:text-foreground text-sm"
+                    >
+                      Terms & Conditions
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
           <div className="pt-8 mt-8 border-t border-border flex flex-col items-center">
             <p className="text-[color:var(--foreground-secondary)] text-sm">
               &copy; {currentYear} ZAVIS. All rights reserved.
             </p>
-            <div className="flex space-x-4 mt-2">
-              <a 
-                href="/privacy-policy" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[color:var(--foreground-secondary)] hover:text-foreground text-xs"
-              >
-                Privacy Policy
-              </a>
-              <a 
-                href="/terms-of-service" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[color:var(--foreground-secondary)] hover:text-foreground text-xs"
-              >
-                Terms of Service
-              </a>
-            </div>
           </div>
         </div>
       </div>
