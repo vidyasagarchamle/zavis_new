@@ -183,6 +183,8 @@ type Industry = {
   id: string;
   name: string;
   description: string;
+  agentId?: string;
+  language?: string;
 };
 
 // Placeholder agents - to be replaced with real data
@@ -204,17 +206,23 @@ const agents: Agent[] = [
       {
         id: "telecom",
         name: "Telecommunications",
-        description: "Service & billing queries"
+        description: "Service & billing queries",
+        agentId: "1MwbMwEyccpddyqzY7GQ",
+        language: "Arabic"
       },
       {
         id: "travel",
         name: "Travel & Airlines",
-        description: "Bookings, changes, customer care"
+        description: "Bookings, changes, customer care",
+        agentId: "3pPaXkypJeGB260trRpr",
+        language: "Hindi"
       },
       {
         id: "banking",
         name: "Banking",
-        description: "Account help, fraud support"
+        description: "Account help, fraud support",
+        agentId: "NLfnFTj74dc4A7101h4v",
+        language: "English"
       }
     ]
   },
@@ -235,17 +243,23 @@ const agents: Agent[] = [
       {
         id: "hospitality",
         name: "Hospitality",
-        description: "Hotels & Resorts"
+        description: "Hotel services & booking assistance",
+        agentId: "SkP2iIFiUM5t3vgQo3mh",
+        language: "English"
       },
       {
         id: "healthcare",
         name: "Healthcare",
-        description: "Clinics & Dental Practices"
+        description: "Medical scheduling & information",
+        agentId: "Oyl1rMTOx5ybmu9f2Lza",
+        language: "English"
       },
       {
         id: "legal",
         name: "Legal Services",
-        description: "Law firms & legal consultants"
+        description: "Legal assistance & consultation",
+        agentId: "N0aXs6jJT5tQK29wKfl5",
+        language: "English"
       }
     ]
   },
@@ -272,17 +286,23 @@ const agents: Agent[] = [
       {
         id: "insurance",
         name: "Insurance",
-        description: "Renewals, claims, policy updates"
+        description: "Renewals, claims, policy updates",
+        agentId: "WapZ7muFh73XmlP59Ew0",
+        language: "English"
       },
       {
         id: "education",
         name: "Education / EdTech",
-        description: "Student onboarding, course follow-ups"
+        description: "Student onboarding, course follow-ups",
+        agentId: "FAYvfJa9gc4JuuWBxKOm",
+        language: "English"
       },
       {
         id: "ecommerce",
-        name: "E-commerce",
-        description: "Cart abandonment, feedback, offers"
+        name: "Subscription Services",
+        description: "Renewal reminders, plan upgrades, retention",
+        agentId: "k0EXg8zCtlWQynlN9KUH",
+        language: "English"
       }
     ]
   }
@@ -359,6 +379,9 @@ export default function LiveDemo() {
     try {
       const selectedIndustry = selectedAgent.industries.find(i => i.id === selectedIndustryId);
       
+      // Use industry-specific agent ID if available, otherwise fall back to the parent agent ID
+      const effectiveAgentId = selectedIndustry?.agentId || selectedAgentId;
+      
       const response = await fetch('/api/trial-call', {
         method: 'POST',
         headers: {
@@ -368,7 +391,7 @@ export default function LiveDemo() {
           name,
           email,
           phone: `${countryCode.code}${phone.startsWith(countryCode.code) ? phone.substring(countryCode.code.length) : phone}`,
-          agentId: selectedAgentId,
+          agentId: effectiveAgentId,
           agentPhoneNumberId: selectedAgent.phoneNumberId,
           industry: selectedIndustry?.name || ''
         }),
@@ -492,21 +515,21 @@ export default function LiveDemo() {
               }
             }}
           >
-            <h3 className="text-xl md:text-2xl font-semibold mb-5">Select an AI Voice Agent</h3>
+            <h3 className="text-xl md:text-2xl font-semibold mb-3">Select an AI Voice Agent</h3>
             
-            <div className="space-y-7">
+            <div className="h-full flex flex-col overflow-auto pr-1 space-y-4">
               {agents.map((agent) => (
-                <div key={agent.id}>
+                <div key={agent.id} className="pb-1">
                   {/* Agent Header as simple heading */}
-                  <div className="flex items-center gap-2 mb-3.5">
-                    <div className="bg-accent/10 h-7 w-7 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <div className="bg-accent/10 h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">
                       <div className="scale-75">{agent.icon}</div>
                     </div>
-                    <h4 className="text-base font-medium">{agent.name}</h4>
+                    <h4 className="text-sm font-medium">{agent.name}</h4>
                   </div>
                   
-                  {/* Industry Selection - No circle indicators, with descriptions */}
-                  <div className="grid grid-cols-3 gap-3">
+                  {/* Industry Selection - more compact */}
+                  <div className="grid grid-cols-3 gap-2.5">
                     {agent.industries.map((industry) => (
                       <motion.button
                         key={industry.id}
@@ -516,21 +539,43 @@ export default function LiveDemo() {
                           setSelectedIndustryId(industry.id);
                         }}
                         className={`
-                          py-3 px-4 rounded-lg border group cursor-pointer h-full
+                          px-3 py-3 rounded-lg cursor-pointer flex flex-col
                           ${(selectedAgentId === agent.id && selectedIndustryId === industry.id)
-                            ? 'border-accent bg-accent/10 shadow-sm' 
-                            : 'border-[color:var(--glass-border)] bg-glass hover:border-accent/40 hover:bg-accent/5'
+                            ? 'bg-accent/10 ring-1 ring-accent ring-opacity-50 shadow-sm' 
+                            : 'bg-glass border border-[color:var(--glass-border)] hover:bg-accent/5 hover:border-accent/20'
                           }
                         `}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                        whileHover={{ 
+                          y: -2,
+                          transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ 
+                          y: 0,
+                          transition: { duration: 0.1 }
+                        }}
                       >
-                        <div className="flex flex-col h-full">
-                          <div className="font-medium text-sm mb-1.5">{industry.name}</div>
-                          <p className="text-xs text-[color:var(--foreground-secondary)] line-clamp-2">
-                            {industry.description}
-                          </p>
+                        <div className="mb-1.5">
+                          <h4 className="font-medium text-sm">
+                            {industry.name}
+                          </h4>
+                        </div>
+                        
+                        <p className="text-[10px] text-[color:var(--foreground-secondary)] whitespace-nowrap overflow-hidden text-ellipsis">
+                          {industry.description}
+                        </p>
+                        
+                        <div className="mt-1">
+                          <span className={`
+                            text-[8px] uppercase tracking-wider font-medium rounded-full px-1.5 py-0.5 inline-block
+                            ${industry.language === "Arabic"
+                              ? "bg-amber-500/10 text-amber-500"
+                              : industry.language === "Hindi" 
+                                ? "bg-violet-500/10 text-violet-500"
+                                : "bg-emerald-500/10 text-emerald-500"
+                            }
+                          `}>
+                            {industry.language}
+                          </span>
                         </div>
                       </motion.button>
                     ))}
@@ -592,7 +637,7 @@ export default function LiveDemo() {
                     
                     <h3 className="text-2xl font-semibold mb-3">Call Initiated!</h3>
                       <p className="text-base text-[color:var(--foreground-secondary)] max-w-md mx-auto">
-                        We&apos;re calling your phone right now. Please answer to speak with our {selectedAgent.name} specialized in the {selectedAgent.industries.find(i => i.id === selectedIndustryId)?.name || ''} industry.
+                        We&apos;re calling your phone right now. Please answer to speak with our AI voice agent.
                     </p>
                     </div>
                     

@@ -11,7 +11,22 @@ import {
 const AGENT_NAMES: Record<string, string> = {
   "4QrU2MrUVVzDyockHplA": "Customer Support Agent",
   "P6GinvJTbVAQ7zqColtW": "Receptionist",
-  "ovEsO8yQKcPMNgeb8iQB": "Due Followup Agent"
+  "ovEsO8yQKcPMNgeb8iQB": "Due Followup Agent",
+  
+  // New industry-specific agents for Customer Support
+  "NLfnFTj74dc4A7101h4v": "Banking Support Agent",
+  "3pPaXkypJeGB260trRpr": "Travel Support Agent",
+  "1MwbMwEyccpddyqzY7GQ": "Telecom Support Agent",
+
+  // Receptionist industry-specific agents
+  "SkP2iIFiUM5t3vgQo3mh": "Hospitality Receptionist",
+  "Oyl1rMTOx5ybmu9f2Lza": "Healthcare Receptionist",
+  "N0aXs6jJT5tQK29wKfl5": "Legal Services Receptionist",
+
+  // Due Follow-up Agent industry-specific agents
+  "WapZ7muFh73XmlP59Ew0": "Insurance Follow-up Agent",
+  "FAYvfJa9gc4JuuWBxKOm": "Education Follow-up Agent",
+  "k0EXg8zCtlWQynlN9KUH": "Subscription Services Follow-up Agent"
 };
 
 // Types
@@ -131,6 +146,14 @@ const saveToGoogleSheet = async (data: RequestBody, callSid: string) => {
 // Make a call using ElevenLabs API
 const makeElevenLabsCall = async (data: RequestBody) => {
   try {
+    // Log detailed information for debugging
+    console.log('Making ElevenLabs call with:', {
+      agent_id: data.agentId,
+      agent_name: AGENT_NAMES[data.agentId] || 'Unknown Agent',
+      industry: data.industry || 'No industry specified',
+      to_number: data.phone.substring(0, 4) + '****' + data.phone.slice(-4), // Masked for privacy in logs
+    });
+    
     const response = await fetch('https://api.elevenlabs.io/v1/convai/twilio/outbound_call', {
       method: 'POST',
       headers: {
@@ -142,8 +165,7 @@ const makeElevenLabsCall = async (data: RequestBody) => {
         agent_phone_number_id: data.agentPhoneNumberId,
         to_number: data.phone,
         conversation_initiation_client_data: {
-          name: data.name,
-          industry: data.industry || ''
+          name: data.name
         },
       }),
     });
@@ -201,8 +223,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Call initiated successfully',
-      callSid: callResult.callSid,
-      industryUsed: data.industry || 'None'
+      callSid: callResult.callSid
     });
   } catch (error: any) {
     console.error('Error in trial-call API:', error);
