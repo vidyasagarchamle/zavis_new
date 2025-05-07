@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, useAnimation, useInView } from 'framer-motion'
 import { Listbox } from '@headlessui/react'
 
@@ -348,6 +348,23 @@ export default function LiveDemo() {
   // Get the currently selected agent
   const selectedAgent = agents.find(agent => agent.id === selectedAgentId) || agents[0];
 
+  // Create a stable callback for industry selection that works across agents
+  const handleIndustrySelect = useCallback((agentId: string, industryId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // First update the agent ID
+    // Using a sync update to ensure agent changes first before industry
+    // This helps when switching between different agents
+    setSelectedAgentId(agentId);
+    
+    // Use a small timeout to ensure agent is updated before industry
+    // This helps with the state batching in React
+    setTimeout(() => {
+      setSelectedIndustryId(industryId);
+    }, 0);
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
@@ -519,7 +536,7 @@ export default function LiveDemo() {
             
             <div className="h-full flex flex-col overflow-auto pr-1 space-y-4">
               {agents.map((agent) => (
-                <div key={agent.id} className="pb-1">
+                <div key={agent.id} className="pb-1 relative z-0" data-agent-id={agent.id}>
                   {/* Agent Header as simple heading */}
                   <div className="flex items-center gap-2 mb-2.5">
                     <div className="bg-accent/10 h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">
@@ -529,28 +546,28 @@ export default function LiveDemo() {
                   </div>
                   
                   {/* Industry Selection - more compact */}
-                  <div className="grid grid-cols-3 gap-2.5">
+                  <div className="grid grid-cols-3 gap-2.5 relative">
                     {agent.industries.map((industry) => (
                       <motion.button
                         key={industry.id}
                         type="button"
-                        onClick={() => {
-                          setSelectedAgentId(agent.id);
-                          setSelectedIndustryId(industry.id);
-                        }}
+                        onClick={(e) => handleIndustrySelect(agent.id, industry.id, e)}
+                        data-industry-id={industry.id}
+                        data-agent-id={agent.id}
                         className={`
-                          px-3 py-3 rounded-lg cursor-pointer flex flex-col
+                          px-3 py-3 rounded-lg cursor-pointer flex flex-col relative z-20
                           ${(selectedAgentId === agent.id && selectedIndustryId === industry.id)
-                            ? 'bg-accent/10 ring-1 ring-accent ring-opacity-50 shadow-sm' 
-                            : 'bg-glass border border-[color:var(--glass-border)] hover:bg-accent/5 hover:border-accent/20'
+                            ? 'bg-accent/10 ring-1 ring-inset ring-accent ring-opacity-50 shadow-sm border-0' 
+                            : 'bg-glass border border-solid border-[color:var(--glass-border)] hover:bg-accent/5 hover:border-accent/20'
                           }
                         `}
+                        initial={false}
                         whileHover={{ 
                           y: -2,
                           transition: { duration: 0.2 }
                         }}
                         whileTap={{ 
-                          y: 0,
+                          scale: 0.98,
                           transition: { duration: 0.1 }
                         }}
                       >
