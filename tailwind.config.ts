@@ -8,6 +8,14 @@ const config: Config = {
   ],
   darkMode: 'class',
   theme: {
+    screens: {
+      'xs': '375px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       fontFamily: {
         'space-grotesk': ['var(--font-space-grotesk)'],
@@ -73,6 +81,9 @@ const config: Config = {
         '18': '4.5rem',
         '112': '28rem',
         '128': '32rem',
+      },
+      minWidth: {
+        '16': '4rem',
       },
       borderRadius: {
         'none': '0',

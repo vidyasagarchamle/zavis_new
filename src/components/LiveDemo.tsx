@@ -487,7 +487,7 @@ export default function LiveDemo() {
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
-          className="text-center max-w-4xl mx-auto mb-10"
+          className="text-center max-w-4xl mx-auto mb-8 sm:mb-10"
           initial="hidden"
           animate={controls}
           variants={{
@@ -505,11 +505,11 @@ export default function LiveDemo() {
             <p className="text-sm font-medium">Try It Now</p>
           </motion.div>
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5">
             Experience <span className="text-gradient">Live Demo</span> of Our AI Voice Agents
           </h2>
           
-          <p className="text-lg md:text-xl text-[color:var(--foreground-secondary)] max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-[color:var(--foreground-secondary)] max-w-3xl mx-auto">
             Interact with our AI voice agents in real-time. Fill out the form, and we'll call your phone immediately to demonstrate how ZAVIS can transform your customer interactions.
           </p>
         </motion.div>
@@ -546,7 +546,7 @@ export default function LiveDemo() {
                   </div>
                   
                   {/* Industry Selection - more compact */}
-                  <div className="grid grid-cols-3 gap-2.5 relative">
+                  <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-2.5 relative">
                     {agent.industries.map((industry) => (
                       <motion.button
                         key={industry.id}
@@ -623,22 +623,22 @@ export default function LiveDemo() {
               {/* Glow effect */}
               <div className="absolute inset-0 rounded-2xl bg-accent/5 blur-2xl -z-10"></div>
               
-              <div className="bg-glass rounded-2xl p-5 border border-[color:var(--glass-border)] shadow-lg backdrop-blur-sm flex-grow flex flex-col h-full">
+              <div className="bg-glass rounded-2xl p-4 sm:p-5 border border-[color:var(--glass-border)] shadow-lg backdrop-blur-sm flex-grow flex flex-col h-full">
                 {success ? (
                   <motion.div 
-                    className="text-center flex flex-col justify-between h-full py-10"
+                    className="text-center flex flex-col justify-between h-full py-8 sm:py-10"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4 }}
                   >
                     <div>
                     <motion.div 
-                        className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6"
+                        className="w-14 h-14 sm:w-16 sm:h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-5 sm:mb-6"
                       initial={{ scale: 0 }}
                       animate={{ scale: [0, 1.2, 1] }}
                       transition={{ duration: 0.5, times: [0, 0.8, 1] }}
                     >
-                        <svg className="w-8 h-8 text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="w-7 h-7 sm:w-8 sm:h-8 text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <motion.path 
                           d="M5 13L9 17L19 7" 
                           stroke="currentColor" 
@@ -652,16 +652,16 @@ export default function LiveDemo() {
                       </svg>
                     </motion.div>
                     
-                    <h3 className="text-2xl font-semibold mb-3">Call Initiated!</h3>
-                      <p className="text-base text-[color:var(--foreground-secondary)] max-w-md mx-auto">
+                    <h3 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3">Call Initiated!</h3>
+                      <p className="text-sm sm:text-base text-[color:var(--foreground-secondary)] max-w-md mx-auto">
                         We&apos;re calling your phone right now. Please answer to speak with our AI voice agent.
                     </p>
                     </div>
                     
-                    <div className="mt-12">
+                    <div className="mt-8 sm:mt-12">
                       <button 
                         onClick={() => setSuccess(false)} 
-                        className="btn-secondary mx-auto py-3 px-8 text-base"
+                        className="btn-secondary mx-auto py-2.5 sm:py-3 px-6 sm:px-8 text-sm sm:text-base"
                       >
                         Try Another Call
                       </button>
@@ -669,8 +669,8 @@ export default function LiveDemo() {
                   </motion.div>
                 ) : (
                   <div className="flex flex-col h-full">
-                    <div className="mb-4">
-                      <h3 className="text-lg font-semibold mb-1">Ready to experience ZAVIS?</h3>
+                    <div className="mb-3 sm:mb-4">
+                      <h3 className="text-base sm:text-lg font-semibold mb-1">Ready to experience ZAVIS?</h3>
                       <p className="text-xs text-[color:var(--foreground-secondary)]">
                         First select an agent and industry, then enter your details below for a customized live demonstration.
                       </p>
@@ -730,14 +730,14 @@ export default function LiveDemo() {
                         <div className="flex items-stretch">
                           <Listbox value={countryCode} onChange={setCountryCode}>
                             <div className="relative">
-                              <Listbox.Button className="relative w-20 flex items-center justify-between gap-1 pl-3 pr-2 py-2 bg-background/50 border border-[color:var(--border)] rounded-l-lg border-r-0 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm">
-                                <span className="mr-1">{countryCode.flag}</span>
-                                <span className="font-medium text-sm">{countryCode.code}</span>
+                              <Listbox.Button className="relative min-w-16 w-16 sm:w-20 flex items-center justify-between gap-1 pl-2 sm:pl-3 pr-1 sm:pr-2 py-2 bg-background/50 border border-[color:var(--border)] rounded-l-lg border-r-0 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-xs sm:text-sm">
+                                <span className="mr-0.5 sm:mr-1">{countryCode.flag}</span>
+                                <span className="font-medium text-xs sm:text-sm truncate">{countryCode.code}</span>
                                 <svg className="w-3 h-3 text-[color:var(--foreground-secondary)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
                               </Listbox.Button>
-                              <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-72 overflow-auto rounded-lg bg-background py-1 border border-[color:var(--glass-border)] shadow-lg focus:outline-none">
+                              <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-60 sm:w-72 overflow-auto rounded-lg bg-background py-1 border border-[color:var(--glass-border)] shadow-lg focus:outline-none">
                                 <div className="sticky top-0 bg-background p-2 border-b border-[color:var(--glass-border)]">
                                   <input
                                     type="text"
@@ -825,7 +825,7 @@ export default function LiveDemo() {
                       <motion.button
                         type="submit"
                         disabled={isSubmitting}
-                        className={`btn-primary w-full py-2.5 px-4 mt-auto text-sm font-medium ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                        className={`btn-primary w-full py-2 sm:py-2.5 px-4 mt-auto text-sm font-medium ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
