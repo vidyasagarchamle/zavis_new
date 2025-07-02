@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, useAnimation, useInView } from 'framer-motion'
 import { Listbox } from '@headlessui/react'
+import { AuroraText } from '@/components/magicui/aurora-text'
+import { GradientBorderButton } from '@/components/ui/GradientBorderButton'
 
 // Country codes data with full names
 type CountryCode = {
@@ -506,7 +508,7 @@ export default function LiveDemo() {
           </motion.div>
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5">
-            Experience <span className="text-gradient">Live Demo</span> of Our AI Voice Agents
+            Experience <AuroraText colors={["#6366f1", "#8b5cf6", "#ec4899", "#06b6d4"]}>Live Demo</AuroraText> of Our AI Voice Agents
           </h2>
           
           <p className="text-base sm:text-lg md:text-xl text-[color:var(--foreground-secondary)] max-w-3xl mx-auto">
@@ -555,10 +557,10 @@ export default function LiveDemo() {
                         data-industry-id={industry.id}
                         data-agent-id={agent.id}
                         className={`
-                          px-3 py-3 rounded-lg cursor-pointer flex flex-col relative z-20
+                          px-3 py-3 rounded-lg cursor-pointer flex flex-col relative z-20 transition-all duration-200
                           ${(selectedAgentId === agent.id && selectedIndustryId === industry.id)
-                            ? 'bg-accent/10 ring-1 ring-inset ring-accent ring-opacity-50 shadow-sm border-0' 
-                            : 'bg-glass border border-solid border-[color:var(--glass-border)] hover:bg-accent/5 hover:border-accent/20'
+                            ? 'bg-accent/20 border-2 border-accent shadow-lg shadow-accent/20 ring-2 ring-accent/50 ring-offset-1 ring-offset-background transform scale-[1.02]' 
+                            : 'bg-glass border border-solid border-[color:var(--glass-border)] hover:bg-accent/5 hover:border-accent/20 hover:shadow-md'
                           }
                         `}
                         initial={false}
@@ -571,13 +573,30 @@ export default function LiveDemo() {
                           transition: { duration: 0.1 }
                         }}
                       >
+                        {/* Selected indicator */}
+                        {(selectedAgentId === agent.id && selectedIndustryId === industry.id) && (
+                          <div className="absolute top-2 right-2 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                            <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </div>
+                        )}
+                        
                         <div className="mb-1.5">
-                          <h4 className="font-medium text-sm">
+                          <h4 className={`font-medium text-sm ${
+                            (selectedAgentId === agent.id && selectedIndustryId === industry.id)
+                              ? 'text-accent font-semibold' 
+                              : ''
+                          }`}>
                             {industry.name}
                           </h4>
                         </div>
                         
-                        <p className="text-[10px] text-[color:var(--foreground-secondary)] whitespace-nowrap overflow-hidden text-ellipsis">
+                        <p className={`text-[10px] whitespace-nowrap overflow-hidden text-ellipsis ${
+                          (selectedAgentId === agent.id && selectedIndustryId === industry.id)
+                            ? 'text-accent/80' 
+                            : 'text-[color:var(--foreground-secondary)]'
+                        }`}>
                           {industry.description}
                         </p>
                         
@@ -822,38 +841,18 @@ export default function LiveDemo() {
                         </motion.div>
                       )}
                       
-                      <motion.button
-                        type="submit"
+                      <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                        <GradientBorderButton
+                          onClick={handleSubmit}
                         disabled={isSubmitting}
-                        className={`btn-primary w-full py-2 sm:py-2.5 px-4 mt-auto text-sm font-medium ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        {isSubmitting ? (
-                          <span className="flex items-center justify-center">
-                            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Initiating Call...
-                          </span>
-                        ) : (
-                          <span className="flex items-center justify-center">
-                            <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M16.5 21.75H15.75C15.3358 21.75 15 21.4142 15 21V18.75C15 18.3358 15.3358 18 15.75 18H16.5C17.7426 18 18.75 19.0074 18.75 20.25C18.75 21.0784 18.3284 21.75 16.5 21.75Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M16.5 18V15.75C16.5 14.9216 15.8284 14.25 15 14.25C14.1716 14.25 13.5 14.9216 13.5 15.75V18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M12.75 21.75H8.25C5.14873 21.75 2.25 18.8513 2.25 15.75V9.75C2.25 9.33579 2.58579 9 3 9H5.25C6.07843 9 6.75 9.67157 6.75 10.5V11.25C6.75 12.0784 7.42157 12.75 8.25 12.75H11.25C12.0784 12.75 12.75 12.0784 12.75 11.25V10.5C12.75 9.67157 13.4216 9 14.25 9H16.5C16.9142 9 17.25 9.33579 17.25 9.75V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M12.75 18V15.75C12.75 14.9216 12.0784 14.25 11.25 14.25C10.4216 14.25 9.75 14.9216 9.75 15.75V18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M9.75 21.75H9C8.58579 21.75 8.25 21.4142 8.25 21V18.75C8.25 18.3358 8.58579 18 9 18H9.75C10.9926 18 12 19.0074 12 20.25C12 21.0784 11.5784 21.75 9.75 21.75Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M12.75 9V5.25C12.75 4.42157 12.0784 3.75 11.25 3.75H8.25C7.42157 3.75 6.75 4.42157 6.75 5.25V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            Call Me Now
-                          </span>
-                        )}
-                      </motion.button>
+                          className="w-full sm:w-auto"
+                        >
+                          {isSubmitting ? 'Starting Call...' : 'Call Me Now'}
+                        </GradientBorderButton>
+                      </div>
                       
                       <p className="text-xs text-center text-[color:var(--foreground-secondary)] mt-1">
-                        By clicking &quot;Call Me Now&quot;, you agree to our Terms of Service and Privacy Policy.
+                        By clicking "Call Me Now", you agree to our Terms of Service and Privacy Policy.
                       </p>
                     </form>
                   </div>

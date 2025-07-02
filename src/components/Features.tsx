@@ -1,6 +1,8 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { motion, useAnimation, useInView } from 'framer-motion'
+import { useRef, useEffect } from 'react'
+import { GradientBorderButton } from './ui/GradientBorderButton'
 
 const features = [
   {
@@ -142,6 +144,27 @@ export default function Features() {
             </motion.div>
           ))}
         </motion.div>
+
+        <div className="flex justify-center mt-8">
+          <GradientBorderButton
+            href="#liveDemo"
+            className="w-full sm:w-auto flex items-center gap-2"
+          >
+            Launch Your AI Agent in 24 Hours
+            <svg
+              className="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </GradientBorderButton>
+        </div>
       </div>
     </section>
   )

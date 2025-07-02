@@ -2,6 +2,7 @@
 
 import { motion, useAnimation, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { GradientBorderButton } from '@/components/ui/GradientBorderButton'
 
 export default function CTA() {
   return (
@@ -38,36 +39,29 @@ export default function CTA() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Ready to Transform Your Customer Calls?</h2>
-              <p className="text-[color:var(--foreground-secondary)] text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-                Join forward-thinking businesses using ZAVIS to handle calls more efficiently, reduce costs, and improve customer experiences.
+              <p className="text-base sm:text-lg text-muted-foreground text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+                Join forward-thinking businesses using <span className="font-space-grotesk">ZAVIS</span> to handle calls more efficiently, reduce costs, and improve customer experiences.
               </p>
             </motion.div>
             
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <a 
-                href="https://calendly.com/zavis-support/30min" 
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <GradientBorderButton
+                href="https://calendly.com/zavis-support/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary px-4 py-2 text-sm w-full sm:w-auto"
               >
                 Book a Call
-              </a>
+              </GradientBorderButton>
               <a 
-                href="#liveDemo"
-                className="btn-secondary px-4 py-2 text-sm w-full sm:w-auto flex items-center justify-center gap-2"
+                href="#liveDemo" 
+                className="inline-flex items-center justify-center px-6 py-3 rounded-xl font-medium text-gray-700 bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white hover:border-gray-300 hover:scale-105 transition-all duration-300"
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 Try Demo
               </a>
-            </motion.div>
+            </div>
             
             <motion.p 
               className="text-[color:var(--foreground-secondary)] mt-6 text-sm"

@@ -2,6 +2,7 @@
 
 import { motion, useAnimation, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { AuroraText } from '@/components/magicui/aurora-text'
 
 export default function WhyZavis() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -86,8 +87,8 @@ export default function WhyZavis() {
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
-            ZAVIS vs Others: <span className="text-gradient">What Actually Matters</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6">
+            <span className="font-space-grotesk">ZAVIS</span> vs Others: <AuroraText colors={["#6366f1", "#8b5cf6", "#ec4899", "#06b6d4"]}>What Actually Matters</AuroraText>
           </h2>
         </motion.div>
 
@@ -104,7 +105,7 @@ export default function WhyZavis() {
               <div className="col-span-1"></div>
               <div className="col-span-1 text-center">
                 <div className="inline-block bg-accent/10 text-accent rounded-lg px-2 sm:px-4 py-1 sm:py-2 font-bold text-xs sm:text-sm">
-                  ZAVIS
+                  <span className="font-space-grotesk">ZAVIS</span>
                 </div>
               </div>
               <div className="col-span-1 text-center">

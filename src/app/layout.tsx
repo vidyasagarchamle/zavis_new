@@ -16,8 +16,27 @@ const outfit = Outfit({
 })
 
 export const metadata: Metadata = {
-  title: 'ZAVIS | AI Voice Agent Platform',
-  description: 'ZAVIS is an advanced AI voice agent platform that revolutionizes customer service by handling calls efficiently and intelligently.',
+  title: 'ZAVIS - AI-Powered Customer Engagement Platform',
+  description: 'Transform customer interactions with AI voice agents and unified CRM platform. Automate conversations, streamline support, and boost engagement.',
+  keywords: 'AI voice agents, CRM platform, customer engagement, chatbot, automation, conversational AI',
+  authors: [{ name: 'ZAVIS' }],
+  creator: 'ZAVIS',
+  publisher: 'ZAVIS',
+  openGraph: {
+    title: 'ZAVIS - AI-Powered Customer Engagement Platform',
+    description: 'Transform customer interactions with AI voice agents and unified CRM platform. Automate conversations, streamline support, and boost engagement.',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ZAVIS - AI-Powered Customer Engagement Platform',
+    description: 'Transform customer interactions with AI voice agents and unified CRM platform. Automate conversations, streamline support, and boost engagement.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: '/favicon.svg',
   },
@@ -37,13 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${outfit.variable}`}>
       <body className="antialiased">
-        <div className="min-h-screen bg-[color:var(--background)] relative">
-          <div className="absolute inset-0 bg-grid opacity-20 z-0"></div>
-          <div className="absolute inset-0 bg-noise opacity-30 z-0"></div>
-          <main className="relative z-10">
         {children}
-          </main>
-        </div>
         <GoogleAnalytics gaId="G-EPR5PE5RVV" />
       </body>
     </html>

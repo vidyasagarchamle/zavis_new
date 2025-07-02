@@ -55,18 +55,6 @@ export default function UseCases() {
     }
   ]
 
-  const launchFeatures = [
-    "Pre-built use case templates",
-    "Plug-and-play integrations",
-    "Minimal setup effort"
-  ]
-
-  const customizeFeatures = [
-    "Branded voice & tone",
-    "Domain-specific vocabulary",
-    "Seamless agent escalation"
-  ]
-
   const fadeInUpVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -128,107 +116,10 @@ export default function UseCases() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center text-[color:var(--foreground-secondary)] text-sm italic max-w-2xl mx-auto mb-12"
+          className="text-center text-[color:var(--foreground-secondary)] text-sm italic max-w-2xl mx-auto"
         >
           These aren&apos;t just features — they&apos;re hours saved, costs cut, and customers delighted.
         </motion.p>
-
-        {/* Feature cards - more compact */}
-        <div className="max-w-5xl mx-auto">
-          <motion.div 
-            className="bg-background/50 border border-border/30 rounded-lg p-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="flex">
-                <div className="flex-shrink-0 mr-4">
-                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M14.2 4L19.5 9.30005L4.5 19.9001H3L4.5 14.7001L14.2 4Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M4.5 14.7001L9.2 17.7001" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M14.2 4L12.3 9.30005L17.3 14.3L19.5 9.30005" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold mb-2">Launch in 24 Hours</h3>
-                  <ul className="space-y-1">
-                    {launchFeatures.map((feature, index) => (
-                      <motion.li 
-                        key={index}
-                        className="flex items-start text-sm"
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 + (index * 0.1) }}
-                      >
-                        <svg className="h-4 w-4 text-accent mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none">
-                          <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/>
-                        </svg>
-                        {feature}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="flex">
-                <div className="flex-shrink-0 mr-4">
-                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M19 9L21 11L19 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M14.5 7.04996C13.907 6.57303 13.2076 6.21895 12.4502 6.01323C11.6928 5.8075 10.8987 5.75598 10.1221 5.86323C9.34557 5.97047 8.60127 6.23387 7.9396 6.63584C7.27794 7.03782 6.71418 7.56868 6.29 8.19998M5 11L3 13L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M9.5 16.95C10.093 17.427 10.7924 17.781 11.5498 17.9867C12.3072 18.1924 13.1013 18.2439 13.8779 18.1367C14.6544 18.0294 15.3987 17.766 16.0604 17.3641C16.7221 16.9621 17.2858 16.4312 17.71 15.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M21 11L3 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold mb-2">Customize to Your Brand</h3>
-                  <ul className="space-y-1">
-                    {customizeFeatures.map((feature, index) => (
-                      <motion.li 
-                        key={index}
-                        className="flex items-start text-sm"
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 + (index * 0.1) }}
-                      >
-                        <svg className="h-4 w-4 text-accent mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none">
-                          <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/>
-                        </svg>
-                        {feature}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* CTA inside the card */}
-            <div className="mt-6 text-center pt-4 border-t border-border/30">
-              <a 
-                href="https://calendly.com/zavis-support/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary px-6 py-2.5 text-sm flex items-center gap-2 mx-auto inline-flex hover:opacity-90 transition-all cursor-pointer"
-                style={{ pointerEvents: 'auto', zIndex: 50, position: 'relative' }}
-                onClick={(e) => { e.stopPropagation(); window.open('https://calendly.com/zavis-support/30min', '_blank'); }}
-              >
-                Launch Your AI Agent in 24 Hours
-                <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </a>
-            </div>
-          </motion.div>
-        </div>
       </div>
     </section>
   )
