@@ -232,51 +232,101 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Stats section */}
-      <div className="w-full bg-background/50 backdrop-blur-sm border-t border-border/30 py-8">
+      {/* Video Explainer section */}
+      <div className="w-full bg-background/50 backdrop-blur-sm border-t border-border/30 py-12">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <h3 className="text-4xl font-bold mb-2">95%</h3>
-              <p className="text-sm text-foreground/60">Customer Satisfaction</p>
+          <motion.div 
+            className="max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Video Section Header */}
+            <div className="text-center mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3">See ZAVIS in Action</h2>
+              <p className="text-foreground/70 text-lg">Watch how our AI voice agents transform customer interactions</p>
             </div>
-            <div className="text-center">
-              <h3 className="text-4xl font-bold mb-2">3x</h3>
-              <p className="text-sm text-foreground/60">Faster Response Time</p>
-            </div>
-            <div className="text-center">
-              <h3 className="text-4xl font-bold mb-2">60%</h3>
-              <p className="text-sm text-foreground/60">Cost Reduction</p>
-            </div>
-            <div className="text-center">
-              <h3 className="text-4xl font-bold mb-2">24/7</h3>
-              <p className="text-sm text-foreground/60">Availability</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Stats section */}
-      <div className="w-full bg-background/50 backdrop-blur-sm border-t border-border/30 py-8">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <h3 className="text-4xl font-bold mb-2">95%</h3>
-              <p className="text-sm text-foreground/60">Customer Satisfaction</p>
+            {/* Video Player Container */}
+            <div className="relative bg-white/90 backdrop-blur-lg rounded-2xl border border-border/30 shadow-2xl overflow-hidden">
+              {/* Video Player Header */}
+              <div className="flex items-center justify-between p-4 border-b border-border/30 bg-white/50">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accent-2 flex items-center justify-center">
+                    <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5V19L19 12L8 5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <div className="text-base font-semibold tracking-tight font-space-grotesk">Product Demo</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="px-3 py-1 bg-red-500/15 rounded-full text-xs font-medium text-red-600 flex items-center gap-1">
+                    <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                    Live Demo
+                  </div>
+                </div>
+              </div>
+
+              {/* Video Player */}
+              <div className="relative aspect-video bg-gradient-to-br from-gray-900 to-gray-800">
+                {/* Placeholder for YouTube video - will be replaced with actual video */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer group">
+                      <svg className="w-8 h-8 text-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                    <p className="text-white/80 text-sm">Click to play demo video</p>
+                  </div>
+                </div>
+                
+                {/* Video overlay controls */}
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <button className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors">
+                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M8 5V19L19 12L8 5Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                    <div className="text-white/80 text-xs">0:00 / 3:45</div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors">
+                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M23 7L16 12L23 17V7Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M14 5V19" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M3 5V19" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                    <button className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors">
+                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Video Info Footer */}
+              <div className="p-4 bg-white/50 border-t border-border/30">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-semibold text-sm mb-1">ZAVIS AI Voice Agent Demo</h3>
+                    <p className="text-xs text-foreground/60">See how ZAVIS handles real customer interactions</p>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-foreground/60">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="12" cy="12" r="3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    1.2K views
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="text-center">
-              <h3 className="text-4xl font-bold mb-2">3x</h3>
-              <p className="text-sm text-foreground/60">Faster Response Time</p>
-            </div>
-            <div className="text-center">
-              <h3 className="text-4xl font-bold mb-2">60%</h3>
-              <p className="text-sm text-foreground/60">Cost Reduction</p>
-            </div>
-            <div className="text-center">
-              <h3 className="text-4xl font-bold mb-2">24/7</h3>
-              <p className="text-sm text-foreground/60">Availability</p>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

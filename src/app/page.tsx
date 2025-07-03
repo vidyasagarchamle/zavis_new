@@ -100,32 +100,33 @@ export default function HomePage() {
             </motion.div>
           </div>
 
-          {/* Stats Section */}
+          {/* Video Section */}
           <div className="container mx-auto px-4 py-12">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12"
+              transition={{ duration: 0.8 }}
+              className="max-w-3xl mx-auto"
             >
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="mb-2">
-                    <span className="text-2xl md:text-3xl font-bold text-foreground">
-                      {stat.number}
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted-foreground font-medium">{stat.label}</p>
-                </motion.div>
-              ))}
+              {/* Video Player Container */}
+              <div className="relative bg-white/90 backdrop-blur-lg rounded-2xl border border-border/30 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 overflow-hidden group">
+                {/* Glow effect behind video */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* YouTube Video Embed */}
+                <div className="relative aspect-video z-10">
+                  <iframe
+                    src="https://www.youtube.com/embed/JgDNFQ2RaLQ?si=065OIPbX2qndIL7F"
+                    title="ZAVIS Demo Video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full rounded-2xl"
+                  />
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>

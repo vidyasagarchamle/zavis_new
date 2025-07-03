@@ -109,16 +109,13 @@ export default function Navbar() {
                   Solutions
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="w-[420px] p-0.5 relative">
-                    <div className="absolute inset-0 bg-white/95 backdrop-blur-xl rounded-2xl border border-border/40 shadow-large overflow-hidden">
-                      <div className="absolute inset-0 bg-grid opacity-[0.05]"></div>
-                    </div>
-                    <div className="relative z-10 grid gap-3 p-4">
+                  <div className="w-[420px] p-4">
+                    <div className="grid gap-3">
                       {solutions.map((solution) => (
                         <NavigationMenuLink key={solution.href} asChild>
                           <Link
                             href={solution.href}
-                            className="group flex flex-col gap-2 rounded-xl px-4 py-3 bg-white/60 hover:bg-white/80 backdrop-blur-md border border-border/50 hover:border-border transition-all duration-300 relative overflow-hidden hover:shadow-md"
+                            className="group flex flex-col gap-2 rounded-xl px-4 py-3 bg-gray-50 hover:bg-gray-100 border border-border/30 hover:border-border transition-all duration-300 relative overflow-hidden hover:shadow-md"
                           >
                             <div className="flex items-center gap-3">
                               <div className={`flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br ${solution.gradient} shadow-sm group-hover:shadow-md group-hover:scale-105 transition-all duration-300`}>
@@ -143,63 +140,15 @@ export default function Navbar() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-base font-medium bg-transparent hover:bg-accent/5 cursor-not-allowed">
-                  Industries <Lock className="w-4 h-4 ml-1 inline-block" />
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-[420px] p-0.5 relative">
-                    <div className="absolute inset-0 bg-white/95 backdrop-blur-md rounded-2xl border border-border shadow-soft overflow-hidden">
-                      <div className="absolute inset-0 bg-grid opacity-[0.05]"></div>
-                    </div>
-                    <div className="relative z-10 grid gap-3 p-4">
-                      {industries.map((industry) => (
-                        <NavigationMenuLink key={industry.href} asChild>
-                          <div
-                            className="flex items-center gap-4 p-3 rounded-xl cursor-not-allowed opacity-70"
-                          >
-                            <div className={`flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br ${industry.gradient} shadow-sm`}>
-                              {industry.icon}
-                            </div>
-                            <div className="flex-1">
-                              <div className="font-medium text-foreground">{industry.title}</div>
-                              <div className="text-sm text-muted-foreground">{industry.description}</div>
-                            </div>
-                          </div>
-                        </NavigationMenuLink>
-                      ))}
-                    </div>
-                  </div>
-                </NavigationMenuContent>
+                <div className="text-base font-medium text-foreground hover:text-foreground/80 transition-colors cursor-not-allowed flex items-center px-4 py-2">
+                  Industries <Lock className="w-4 h-4 ml-1" />
+                </div>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-base font-medium bg-transparent hover:bg-accent/5 cursor-not-allowed">
-                  Resources <Lock className="w-4 h-4 ml-1 inline-block" />
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-[420px] p-0.5 relative">
-                    <div className="absolute inset-0 bg-white/95 backdrop-blur-md rounded-2xl border border-border shadow-soft overflow-hidden">
-                      <div className="absolute inset-0 bg-grid opacity-[0.05]"></div>
-                    </div>
-                    <div className="relative z-10 grid gap-3 p-4">
-                      {resources.map((resource) => (
-                        <NavigationMenuLink key={resource.href} asChild>
-                          <div
-                            className="flex items-center gap-4 p-3 rounded-xl cursor-not-allowed opacity-70"
-                          >
-                            <div className={`flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br ${resource.gradient} shadow-sm`}>
-                              {resource.icon}
-                            </div>
-                            <div className="flex-1">
-                              <div className="font-medium text-foreground">{resource.title}</div>
-                              <div className="text-sm text-muted-foreground">{resource.description}</div>
-                            </div>
-                          </div>
-                        </NavigationMenuLink>
-                      ))}
-                    </div>
-                  </div>
-                </NavigationMenuContent>
+                <div className="text-base font-medium text-foreground hover:text-foreground/80 transition-colors cursor-not-allowed flex items-center px-4 py-2">
+                  Resources <Lock className="w-4 h-4 ml-1" />
+                </div>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
