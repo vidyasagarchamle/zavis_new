@@ -136,9 +136,9 @@ export default function HowItWorks() {
                     {step.id === 4 && (
                       <div className="mt-3 sm:mt-4 inline-flex items-center text-accent hover:text-accent/80 transition-colors">
                         <a href="#liveDemo" className="font-medium flex items-center text-sm sm:text-base">
-                          <span>Try it yourself in our live demo below</span>
+                          <span>Try it yourself in our live demo above</span>
                           <svg className="ml-2 w-3 h-3 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
                           </svg>
                         </a>
                       </div>
@@ -190,9 +190,9 @@ export default function HowItWorks() {
         {/* Visual connector to LiveDemo section */}
         <div className="text-center mt-6 sm:mt-8">
           <a href="#liveDemo" className="inline-flex flex-col items-center text-accent hover:text-accent/80 transition-colors">
-            <span className="font-medium text-xs sm:text-sm mb-2">Continue to Live Demo</span>
+            <span className="font-medium text-xs sm:text-sm mb-2">Back to Live Demo</span>
             <svg className="w-5 h-5 sm:w-6 sm:h-6 animate-bounce" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 5V19M12 19L19 12M12 19L5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
         </div>

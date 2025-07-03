@@ -6,7 +6,7 @@ import { GradientBorderButton } from '@/components/ui/GradientBorderButton'
 
 export default function VoiceAgentsHero() {
   return (
-    <section id="hero" className="relative min-h-[calc(100vh-4rem)] pt-20 pb-8 flex items-center overflow-hidden">
+    <section id="hero" className="relative min-h-[calc(100vh-4rem)] pt-32 pb-8 flex items-center overflow-hidden">
       <div className="container mx-auto px-4 z-10 relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
           {/* Left column - Content */}

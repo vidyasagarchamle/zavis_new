@@ -25,9 +25,9 @@ export default function VoiceAgentsPage() {
       <Navbar />
       <div className="relative">
         <VoiceAgentsHero />
+        <LiveDemo />
         <Problem />
         <HowItWorks />
-        <LiveDemo />
         <UseCases />
         <WhyZavis />
         <CTA />

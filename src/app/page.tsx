@@ -1,8 +1,8 @@
 "use client"
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight, Bot, MessageSquare, Phone, Users, Zap, CheckCircle } from 'lucide-react'
+import { ArrowRight, Bot, MessageSquare, Phone, Users, Zap, CheckCircle, Play, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import Navbar from '@/components/Navbar'
@@ -11,6 +11,7 @@ import GlobalBackground from '@/components/ui/GlobalBackground'
 import { AuroraText } from '@/components/magicui/aurora-text'
 import { GradientBorderButton } from '@/components/ui/GradientBorderButton'
 import LiveDemo from '@/components/LiveDemo'
+import { useState } from 'react'
 
 const solutions = [
   {
@@ -57,13 +58,15 @@ const benefits = [
 ]
 
 export default function HomePage() {
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
+
   return (
     <main className="bg-transparent">
       <GlobalBackground />
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-24 md:pt-28 pb-8 md:pb-8 overflow-hidden">
+      <section className="relative pt-24 md:pt-28 pb-4 md:pb-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent-2/5 pointer-events-none" />
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -71,37 +74,32 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-6"
+              className="space-y-4"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-muted/50 mb-6">
-                <span className="animate-pulse h-2 w-2 rounded-full bg-primary"></span>
-                <p className="text-sm font-medium text-muted-foreground">AI-Powered Customer Engagement</p>
-              </div>
-              
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
                 Transform Customer <AuroraText colors={["#6366f1", "#8b5cf6", "#ec4899", "#06b6d4"]}>Interactions</AuroraText> with AI
               </h1>
               
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 Automate conversations, streamline support, and boost engagement with our unified AI voice agents and CRM platform.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-5">
                 <GradientBorderButton
                   href="https://calendly.com/zavis-support/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto"
+                  className="w-full sm:w-auto text-sm px-5 py-2.5"
                 >
                   Book a Call
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4" />
                 </GradientBorderButton>
               </div>
             </motion.div>
           </div>
 
           {/* Video Section */}
-          <div className="container mx-auto px-4 py-12">
+          <div className="container mx-auto px-4 py-6">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -109,22 +107,33 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
               className="max-w-3xl mx-auto"
             >
-              {/* Video Player Container */}
-              <div className="relative bg-white/90 backdrop-blur-lg rounded-2xl border border-border/30 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 overflow-hidden group">
+              {/* Video Thumbnail Container */}
+              <div 
+                className="relative bg-white/90 backdrop-blur-lg rounded-2xl border border-border/30 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 overflow-hidden group cursor-pointer"
+                onClick={() => setIsVideoModalOpen(true)}
+              >
                 {/* Glow effect behind video */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                {/* YouTube Video Embed */}
-                <div className="relative aspect-video z-10">
-                  <iframe
-                    src="https://www.youtube.com/embed/JgDNFQ2RaLQ?si=065OIPbX2qndIL7F"
-                    title="ZAVIS Demo Video"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full rounded-2xl"
+                {/* Video Thumbnail */}
+                <div className="relative aspect-video z-10 bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
+                  {/* YouTube Thumbnail */}
+                  <img 
+                    src="https://img.youtube.com/vi/JgDNFQ2RaLQ/maxresdefault.jpg" 
+                    alt="ZAVIS Demo Video Thumbnail"
+                    className="absolute inset-0 w-full h-full object-cover rounded-2xl"
                   />
+                  
+                  {/* Play Button Overlay */}
+                  <div className="relative z-10 w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 shadow-lg">
+                    <Play className="w-8 h-8 text-gray-800 ml-1" fill="currentColor" />
+                  </div>
+                  
+                  {/* Video Info Overlay */}
+                  <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white">
+                    <h3 className="font-semibold text-sm mb-1">ZAVIS</h3>
+                    <p className="text-xs opacity-80">See how ZAVIS transforms customer interactions</p>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -286,6 +295,53 @@ export default function HomePage() {
       </section>
 
       <Footer />
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {isVideoModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              onClick={() => setIsVideoModalOpen(false)}
+            />
+            
+            {/* Modal Content */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3, type: "spring" }}
+              className="relative w-full max-w-5xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setIsVideoModalOpen(false)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-colors"
+              >
+                <X className="w-5 h-5 text-white" />
+              </button>
+              
+              {/* Video Player */}
+              <div className="relative aspect-video">
+                <iframe
+                  src="https://www.youtube.com/embed/JgDNFQ2RaLQ?si=065OIPbX2qndIL7F&autoplay=1"
+                  title="ZAVIS Demo Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </main>
   )
 }
