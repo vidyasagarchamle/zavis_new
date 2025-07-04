@@ -142,13 +142,13 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <div className="text-base font-medium text-foreground hover:text-foreground/80 transition-colors cursor-not-allowed flex items-center px-4 py-2">
                   Industries <Lock className="w-4 h-4 ml-1" />
-                </div>
+                  </div>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
                 <div className="text-base font-medium text-foreground hover:text-foreground/80 transition-colors cursor-not-allowed flex items-center px-4 py-2">
                   Resources <Lock className="w-4 h-4 ml-1" />
-                </div>
+                  </div>
               </NavigationMenuItem>
 
               <NavigationMenuItem>

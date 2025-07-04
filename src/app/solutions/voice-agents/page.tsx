@@ -6,7 +6,6 @@ import UseCases from '@/components/UseCases'
 import WhyZavis from '@/components/WhyZavis'
 import CTA from '@/components/CTA'
 import Footer from '@/components/Footer'
-import LiveDemo from '@/components/LiveDemo'
 import { Metadata } from 'next'
 import GlobalBackground from '@/components/ui/GlobalBackground'
 import { GradientBorderButton } from '@/components/ui/GradientBorderButton'
@@ -25,7 +24,6 @@ export default function VoiceAgentsPage() {
       <Navbar />
       <div className="relative">
         <VoiceAgentsHero />
-        <LiveDemo />
         <Problem />
         <HowItWorks />
         <UseCases />

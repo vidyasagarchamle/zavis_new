@@ -310,7 +310,7 @@ const agents: Agent[] = [
   }
 ];
 
-export default function LiveDemo() {
+export default function LiveDemo({ inHero = false }: { inHero?: boolean }) {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
@@ -327,11 +327,18 @@ export default function LiveDemo() {
   const isInView = useInView(sectionRef, { once: false, amount: 0.3 })
   const controls = useAnimation()
 
+  // Select first industry by default
   useEffect(() => {
-    if (isInView) {
+    if (agents[0].industries.length > 0) {
+      setSelectedIndustryId(agents[0].industries[0].id);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (inHero || isInView) {
       controls.start("visible")
     }
-  }, [isInView, controls])
+  }, [isInView, controls, inHero])
 
   // Generate particle positions on client-side only
   useEffect(() => {
@@ -370,9 +377,24 @@ export default function LiveDemo() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Basic validation
-    if (!name || !email || !phone) {
-      setError("All fields are required")
+    // Validation checks
+    if (!selectedIndustryId) {
+      setError("Please select an industry for your demo")
+      return
+    }
+    
+    if (!name) {
+      setError("Please enter your name")
+      return
+    }
+    
+    if (!email) {
+      setError("Please enter your email address")
+      return
+    }
+    
+    if (!phone) {
+      setError("Please enter your phone number")
       return
     }
     
@@ -383,12 +405,6 @@ export default function LiveDemo() {
     
     if (!isValidPhoneNumber(phone)) {
       setError("Please enter a valid phone number")
-      return
-    }
-
-    // Industry validation
-    if (!selectedIndustryId) {
-      setError("Please select an industry for your demo")
       return
     }
 
@@ -455,6 +471,351 @@ export default function LiveDemo() {
     return /^\d{5,15}$/.test(phone.replace(/[\s\-\(\)]/g, ''))
   }
 
+  const content = (
+    <>
+      {!inHero && (
+        <motion.div 
+          className="text-center max-w-4xl mx-auto mb-8 sm:mb-10"
+          initial="hidden"
+          animate={controls}
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+          }}
+        >
+          <motion.div
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/30 bg-glass mb-5"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            <span className="animate-pulse h-2 w-2 rounded-full bg-accent"></span>
+            <p className="text-sm font-medium">Try It Now</p>
+          </motion.div>
+          
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5">
+            Experience <AuroraText colors={["#6366f1", "#8b5cf6", "#ec4899", "#06b6d4"]}>Live Demo</AuroraText> of Our AI Voice Agents
+          </h2>
+          
+          <p className="text-base sm:text-lg md:text-xl text-[color:var(--foreground-secondary)] max-w-3xl mx-auto">
+            Interact with our AI voice agents in real-time. Fill out the form, and we'll call your phone immediately to demonstrate how ZAVIS can transform your customer interactions.
+          </p>
+        </motion.div>
+      )}
+      
+      <div className="flex flex-col lg:flex-row items-stretch justify-center max-w-6xl mx-auto gap-6 lg:gap-8 items-stretch">
+        {/* Agent Selection */}
+        <motion.div 
+          className="w-full lg:w-1/2 flex flex-col h-full"
+          initial={inHero ? { opacity: 0, x: -20 } : "hidden"}
+          animate={inHero ? { opacity: 1, x: 0 } : controls}
+          transition={inHero ? { duration: 0.6, delay: 0.2 } : undefined}
+          variants={!inHero ? {
+            hidden: { opacity: 0, x: -30 },
+            visible: { 
+              opacity: 1, 
+              x: 0,
+              transition: { 
+                duration: 0.6,
+                delay: 0.4
+              } 
+            }
+          } : undefined}
+        >
+          <h3 className="text-xl md:text-2xl font-semibold mb-3">Select an AI Voice Agent</h3>
+          
+          <div className="h-full flex flex-col overflow-auto pr-1 space-y-4">
+            {agents.map((agent) => (
+              <div key={agent.id} className="pb-1 relative z-0" data-agent-id={agent.id}>
+                {/* Agent Header as simple heading */}
+                <div className="flex items-center gap-2 mb-2.5">
+                  <div className="bg-accent/10 h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="scale-75">{agent.icon}</div>
+                  </div>
+                  <h4 className="text-sm font-medium">{agent.name}</h4>
+                </div>
+                
+                {/* Industry Selection - more compact */}
+                <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-2.5 relative">
+                  {agent.industries.map((industry) => (
+                    <motion.button
+                      key={industry.id}
+                      type="button"
+                      onClick={(e) => handleIndustrySelect(agent.id, industry.id, e)}
+                      data-industry-id={industry.id}
+                      data-agent-id={agent.id}
+                      className={`
+                        px-3 py-3 rounded-lg cursor-pointer flex flex-col relative z-20 transition-all duration-200
+                        ${(selectedAgentId === agent.id && selectedIndustryId === industry.id)
+                          ? 'bg-accent/20 border-2 border-accent shadow-lg shadow-accent/20 ring-2 ring-accent/50 ring-offset-1 ring-offset-background transform scale-[1.02]' 
+                          : 'bg-glass border border-solid border-[color:var(--glass-border)] hover:bg-accent/5 hover:border-accent/20 hover:shadow-md'
+                        }
+                      `}
+                      initial={false}
+                      whileHover={{ 
+                        y: -2,
+                        transition: { duration: 0.2 }
+                      }}
+                      whileTap={{ 
+                        scale: 0.98,
+                        transition: { duration: 0.1 }
+                      }}
+                    >
+                      {/* Selected indicator */}
+                      {(selectedAgentId === agent.id && selectedIndustryId === industry.id) && (
+                        <div className="absolute top-2 right-2 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                          <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                      )}
+                      
+                      <div className="mb-1.5">
+                        <h4 className={`font-medium text-sm ${
+                          (selectedAgentId === agent.id && selectedIndustryId === industry.id)
+                            ? 'text-accent font-semibold' 
+                            : ''
+                        }`}>
+                          {industry.name}
+                        </h4>
+                      </div>
+                      
+                      <p className={`text-[10px] whitespace-nowrap overflow-hidden text-ellipsis ${
+                        (selectedAgentId === agent.id && selectedIndustryId === industry.id)
+                          ? 'text-accent/80' 
+                          : 'text-[color:var(--foreground-secondary)]'
+                      }`}>
+                        {industry.description}
+                      </p>
+                      
+                      <div className="mt-1">
+                        <span className={`
+                          text-[8px] uppercase tracking-wider font-medium rounded-full px-1.5 py-0.5 inline-block
+                          ${industry.language === "Arabic"
+                            ? "bg-amber-500/10 text-amber-500"
+                            : industry.language === "Hindi" 
+                              ? "bg-violet-500/10 text-violet-500"
+                              : "bg-emerald-500/10 text-emerald-500"
+                          }
+                        `}>
+                          {industry.language}
+                        </span>
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+        
+        {/* Contact Form */}
+        <motion.div 
+          className="w-full lg:w-1/2 flex flex-col h-full mt-4 lg:mt-8"
+          initial={inHero ? { opacity: 0, x: 20 } : "hidden"}
+          animate={inHero ? { opacity: 1, x: 0 } : controls}
+          transition={inHero ? { duration: 0.6, delay: 0.3 } : undefined}
+          variants={!inHero ? {
+            hidden: { opacity: 0, x: 30 },
+            visible: { 
+              opacity: 1, 
+              x: 0,
+              transition: { 
+                duration: 0.6,
+                delay: 0.5
+              } 
+            }
+          } : undefined}
+        >
+          <div className="relative flex flex-col">
+            {/* Glow effect */}
+            <div className="absolute inset-0 rounded-2xl bg-accent/5 blur-2xl -z-10"></div>
+            
+            <div className="bg-glass rounded-2xl p-4 sm:p-5 border border-[color:var(--glass-border)] shadow-lg backdrop-blur-sm flex flex-col h-full">
+              {success ? (
+                <motion.div 
+                  className="text-center flex flex-col justify-between h-full py-8 sm:py-10"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <div>
+                    <motion.div 
+                      className="w-14 h-14 sm:w-16 sm:h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-5 sm:mb-6"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: [0, 1.2, 1] }}
+                      transition={{ duration: 0.5, times: [0, 0.8, 1] }}
+                    >
+                      <svg className="w-7 h-7 sm:w-8 sm:h-8 text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <motion.path 
+                          d="M5 13L9 17L19 7" 
+                          stroke="currentColor" 
+                          strokeWidth="2" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          transition={{ duration: 0.6, delay: 0.2 }}
+                        />
+                      </svg>
+                    </motion.div>
+                    
+                    <h3 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3">Call Initiated!</h3>
+                    <p className="text-sm sm:text-base text-[color:var(--foreground-secondary)] max-w-md mx-auto">
+                      We&apos;re calling your phone right now. Please answer to speak with our AI voice agent.
+                    </p>
+                  </div>
+                  
+                  <div className="mt-8 sm:mt-12">
+                    <button 
+                      onClick={() => setSuccess(false)} 
+                      className="btn-secondary mx-auto py-2.5 sm:py-3 px-6 sm:px-8 text-sm sm:text-base"
+                    >
+                      Try Another Call
+                    </button>
+                  </div>
+                </motion.div>
+              ) : (
+                <div className="flex flex-col">
+                  <div className="mb-3 sm:mb-4">
+                    <h3 className="text-base sm:text-lg font-semibold mb-1">Ready to experience ZAVIS?</h3>
+                    <p className="text-xs text-[color:var(--foreground-secondary)]">
+                      First select an agent and industry, then enter your details below for a customized live demonstration.
+                    </p>
+                  </div>
+                  
+                  <form onSubmit={handleSubmit} className="space-y-3 flex flex-col">
+                    {/* Name field */}
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
+                      <input
+                        type="text"
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg bg-white/50 border border-[color:var(--glass-border)] focus:border-accent focus:ring-1 focus:ring-accent text-sm"
+                        placeholder="Enter your name"
+                      />
+                    </div>
+
+                    {/* Email field */}
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg bg-white/50 border border-[color:var(--glass-border)] focus:border-accent focus:ring-1 focus:ring-accent text-sm"
+                        placeholder="Enter your email"
+                      />
+                    </div>
+
+                    {/* Phone field with country code */}
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium mb-1">Phone Number</label>
+                      <div className="flex gap-2">
+                        <Listbox value={countryCode} onChange={setCountryCode}>
+                          <div className="relative">
+                            <Listbox.Button className="relative w-[90px] flex items-center gap-2 px-3 py-2 text-left rounded-lg bg-white/50 border border-[color:var(--glass-border)] focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm cursor-default">
+                              <span className="text-base">{countryCode.flag}</span>
+                              <span className="block truncate">{countryCode.code}</span>
+                              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                <svg className="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                                  <path d="M7 7l3-3 3 3m0 6l-3 3-3-3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                              </span>
+                            </Listbox.Button>
+                            <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-[200px] overflow-auto rounded-lg bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                              <div className="sticky top-0 z-10 bg-white px-2 py-1.5">
+                                <input
+                                  type="text"
+                                  value={countrySearch}
+                                  onChange={(e) => setCountrySearch(e.target.value)}
+                                  placeholder="Search..."
+                                  className="w-full px-2 py-1 text-sm border border-[color:var(--glass-border)] rounded focus:outline-none focus:border-accent"
+                                />
+                              </div>
+                              {countryCodes
+                                .filter(code => 
+                                  code.country.toLowerCase().includes(countrySearch.toLowerCase()) ||
+                                  code.code.toLowerCase().includes(countrySearch.toLowerCase())
+                                )
+                                .map((code) => (
+                                  <Listbox.Option
+                                    key={`${code.code}-${code.country}`}
+                                    value={code}
+                                    className={({ active }) =>
+                                      `relative cursor-default select-none py-2 px-3 ${
+                                        active ? 'bg-accent/10 text-accent' : ''
+                                      }`
+                                    }
+                                  >
+                                    {({ selected }) => (
+                                      <div className="flex items-center gap-2">
+                                        <span className="text-base">{code.flag}</span>
+                                        <span className={`block truncate ${selected ? 'font-medium text-accent' : ''}`}>
+                                          {code.name} ({code.code})
+                                        </span>
+                                      </div>
+                                    )}
+                                  </Listbox.Option>
+                                ))}
+                            </Listbox.Options>
+                          </div>
+                        </Listbox>
+                        <input
+                          type="tel"
+                          id="phone"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="flex-1 px-3 py-2 rounded-lg bg-white/50 border border-[color:var(--glass-border)] focus:border-accent focus:ring-1 focus:ring-accent text-sm"
+                          placeholder="Enter phone number"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Error message */}
+                    {error && (
+                      <div className="text-red-500 text-sm mt-2">{error}</div>
+                    )}
+
+                    {/* Call Me Now button using GradientBorderButton */}
+                    <GradientBorderButton
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full mt-4 py-2.5 text-sm font-medium"
+                    >
+                      {isSubmitting ? (
+                        <span className="flex items-center justify-center gap-2">
+                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                          </svg>
+                          Initiating Call...
+                        </span>
+                      ) : (
+                        'Call Me Now'
+                      )}
+                    </GradientBorderButton>
+                    
+                    <p className="text-xs text-center text-[color:var(--foreground-secondary)] mt-2">
+                      By clicking "Call Me Now", you agree to our Terms of Service and Privacy Policy.
+                    </p>
+                  </form>
+                </div>
+              )}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </>
+  )
+
+  if (inHero) {
+    return content
+  }
+
   return (
     <section id="liveDemo" ref={sectionRef} className="relative py-16 pt-14 md:pt-16 overflow-hidden bg-transparent">
       {/* Global background is now used instead */}
@@ -488,379 +849,7 @@ export default function LiveDemo() {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div 
-          className="text-center max-w-4xl mx-auto mb-8 sm:mb-10"
-          initial="hidden"
-          animate={controls}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
-          }}
-        >
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/30 bg-glass mb-5"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <span className="animate-pulse h-2 w-2 rounded-full bg-accent"></span>
-            <p className="text-sm font-medium">Try It Now</p>
-          </motion.div>
-          
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5">
-            Experience <AuroraText colors={["#6366f1", "#8b5cf6", "#ec4899", "#06b6d4"]}>Live Demo</AuroraText> of Our AI Voice Agents
-          </h2>
-          
-          <p className="text-base sm:text-lg md:text-xl text-[color:var(--foreground-secondary)] max-w-3xl mx-auto">
-            Interact with our AI voice agents in real-time. Fill out the form, and we'll call your phone immediately to demonstrate how ZAVIS can transform your customer interactions.
-          </p>
-        </motion.div>
-        
-        <div className="flex flex-col lg:flex-row items-stretch justify-center max-w-6xl mx-auto gap-6 lg:gap-8">
-          {/* Agent Selection */}
-          <motion.div 
-            className="w-full lg:w-1/2 flex flex-col"
-            initial="hidden"
-            animate={controls}
-            variants={{
-              hidden: { opacity: 0, x: -30 },
-              visible: { 
-                opacity: 1, 
-                x: 0,
-                transition: { 
-                  duration: 0.6,
-                  delay: 0.4
-                } 
-              }
-            }}
-          >
-            <h3 className="text-xl md:text-2xl font-semibold mb-3">Select an AI Voice Agent</h3>
-            
-            <div className="h-full flex flex-col overflow-auto pr-1 space-y-4">
-              {agents.map((agent) => (
-                <div key={agent.id} className="pb-1 relative z-0" data-agent-id={agent.id}>
-                  {/* Agent Header as simple heading */}
-                  <div className="flex items-center gap-2 mb-2.5">
-                    <div className="bg-accent/10 h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">
-                      <div className="scale-75">{agent.icon}</div>
-                    </div>
-                    <h4 className="text-sm font-medium">{agent.name}</h4>
-                  </div>
-                  
-                  {/* Industry Selection - more compact */}
-                  <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-2.5 relative">
-                    {agent.industries.map((industry) => (
-                      <motion.button
-                        key={industry.id}
-                        type="button"
-                        onClick={(e) => handleIndustrySelect(agent.id, industry.id, e)}
-                        data-industry-id={industry.id}
-                        data-agent-id={agent.id}
-                        className={`
-                          px-3 py-3 rounded-lg cursor-pointer flex flex-col relative z-20 transition-all duration-200
-                          ${(selectedAgentId === agent.id && selectedIndustryId === industry.id)
-                            ? 'bg-accent/20 border-2 border-accent shadow-lg shadow-accent/20 ring-2 ring-accent/50 ring-offset-1 ring-offset-background transform scale-[1.02]' 
-                            : 'bg-glass border border-solid border-[color:var(--glass-border)] hover:bg-accent/5 hover:border-accent/20 hover:shadow-md'
-                          }
-                        `}
-                        initial={false}
-                        whileHover={{ 
-                          y: -2,
-                          transition: { duration: 0.2 }
-                        }}
-                        whileTap={{ 
-                          scale: 0.98,
-                          transition: { duration: 0.1 }
-                        }}
-                      >
-                        {/* Selected indicator */}
-                        {(selectedAgentId === agent.id && selectedIndustryId === industry.id) && (
-                          <div className="absolute top-2 right-2 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                            <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                          </div>
-                        )}
-                        
-                        <div className="mb-1.5">
-                          <h4 className={`font-medium text-sm ${
-                            (selectedAgentId === agent.id && selectedIndustryId === industry.id)
-                              ? 'text-accent font-semibold' 
-                              : ''
-                          }`}>
-                            {industry.name}
-                          </h4>
-                        </div>
-                        
-                        <p className={`text-[10px] whitespace-nowrap overflow-hidden text-ellipsis ${
-                          (selectedAgentId === agent.id && selectedIndustryId === industry.id)
-                            ? 'text-accent/80' 
-                            : 'text-[color:var(--foreground-secondary)]'
-                        }`}>
-                          {industry.description}
-                        </p>
-                        
-                        <div className="mt-1">
-                          <span className={`
-                            text-[8px] uppercase tracking-wider font-medium rounded-full px-1.5 py-0.5 inline-block
-                            ${industry.language === "Arabic"
-                              ? "bg-amber-500/10 text-amber-500"
-                              : industry.language === "Hindi" 
-                                ? "bg-violet-500/10 text-violet-500"
-                                : "bg-emerald-500/10 text-emerald-500"
-                            }
-                          `}>
-                            {industry.language}
-                          </span>
-                        </div>
-                      </motion.button>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-          
-          {/* Contact Form */}
-          <motion.div 
-            className="w-full lg:w-1/2 flex flex-col"
-            initial="hidden"
-            animate={controls}
-            variants={{
-              hidden: { opacity: 0, x: 30 },
-              visible: { 
-                opacity: 1, 
-                x: 0,
-                transition: { 
-                  duration: 0.6,
-                  delay: 0.5
-                } 
-              }
-            }}
-          >
-            <div className="relative flex flex-col h-full">
-              {/* Glow effect */}
-              <div className="absolute inset-0 rounded-2xl bg-accent/5 blur-2xl -z-10"></div>
-              
-              <div className="bg-glass rounded-2xl p-4 sm:p-5 border border-[color:var(--glass-border)] shadow-lg backdrop-blur-sm flex-grow flex flex-col h-full">
-                {success ? (
-                  <motion.div 
-                    className="text-center flex flex-col justify-between h-full py-8 sm:py-10"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <div>
-                    <motion.div 
-                        className="w-14 h-14 sm:w-16 sm:h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-5 sm:mb-6"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: [0, 1.2, 1] }}
-                      transition={{ duration: 0.5, times: [0, 0.8, 1] }}
-                    >
-                        <svg className="w-7 h-7 sm:w-8 sm:h-8 text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <motion.path 
-                          d="M5 13L9 17L19 7" 
-                          stroke="currentColor" 
-                          strokeWidth="2" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round"
-                          initial={{ pathLength: 0 }}
-                          animate={{ pathLength: 1 }}
-                          transition={{ duration: 0.6, delay: 0.2 }}
-                        />
-                      </svg>
-                    </motion.div>
-                    
-                    <h3 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3">Call Initiated!</h3>
-                      <p className="text-sm sm:text-base text-[color:var(--foreground-secondary)] max-w-md mx-auto">
-                        We&apos;re calling your phone right now. Please answer to speak with our AI voice agent.
-                    </p>
-                    </div>
-                    
-                    <div className="mt-8 sm:mt-12">
-                      <button 
-                        onClick={() => setSuccess(false)} 
-                        className="btn-secondary mx-auto py-2.5 sm:py-3 px-6 sm:px-8 text-sm sm:text-base"
-                      >
-                        Try Another Call
-                      </button>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <div className="flex flex-col h-full">
-                    <div className="mb-3 sm:mb-4">
-                      <h3 className="text-base sm:text-lg font-semibold mb-1">Ready to experience ZAVIS?</h3>
-                      <p className="text-xs text-[color:var(--foreground-secondary)]">
-                        First select an agent and industry, then enter your details below for a customized live demonstration.
-                      </p>
-                    </div>
-                    
-                    <form onSubmit={handleSubmit} className="space-y-3 flex-grow flex flex-col">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-1">
-                          Your Name
-                        </label>
-                        <div className="relative">
-                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg className="w-4 h-4 text-[color:var(--foreground-secondary)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M4 20V19C4 15.6863 6.68629 13 10 13H14C17.3137 13 20 15.6863 20 19V20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                          </div>
-                          <input
-                            id="name"
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="Enter your full name"
-                            className="w-full pl-8 pr-4 py-2 bg-background/50 border border-[color:var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
-                            required
-                          />
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-1">
-                          Email Address
-                        </label>
-                        <div className="relative">
-                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg className="w-4 h-4 text-[color:var(--foreground-secondary)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M3 8C3 6.34315 4.34315 5 6 5H18C19.6569 5 21 6.34315 21 8V16C21 17.6569 19.6569 19 18 19H6C4.34315 19 3 17.6569 3 16V8Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                              <path d="M4 7L12 13L20 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                          </div>
-                          <input
-                            id="email"
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
-                            className="w-full pl-8 pr-4 py-2 bg-background/50 border border-[color:var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
-                            required
-                          />
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-medium mb-1">
-                          Phone Number
-                        </label>
-                        <div className="flex items-stretch">
-                          <Listbox value={countryCode} onChange={setCountryCode}>
-                            <div className="relative">
-                              <Listbox.Button className="relative min-w-16 w-16 sm:w-20 flex items-center justify-between gap-1 pl-2 sm:pl-3 pr-1 sm:pr-2 py-2 bg-background/50 border border-[color:var(--border)] rounded-l-lg border-r-0 focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-xs sm:text-sm">
-                                <span className="mr-0.5 sm:mr-1">{countryCode.flag}</span>
-                                <span className="font-medium text-xs sm:text-sm truncate">{countryCode.code}</span>
-                                <svg className="w-3 h-3 text-[color:var(--foreground-secondary)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                </svg>
-                              </Listbox.Button>
-                              <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-60 sm:w-72 overflow-auto rounded-lg bg-background py-1 border border-[color:var(--glass-border)] shadow-lg focus:outline-none">
-                                <div className="sticky top-0 bg-background p-2 border-b border-[color:var(--glass-border)]">
-                                  <input
-                                    type="text"
-                                    value={countrySearch}
-                                    onChange={(e) => setCountrySearch(e.target.value)}
-                                    placeholder="Search country..."
-                                    className="w-full px-3 py-2 bg-background/50 border border-[color:var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
-                                    onClick={(e) => e.stopPropagation()}
-                                  />
-                                </div>
-                                {countryCodes
-                                  .filter(country => 
-                                    country.name.toLowerCase().includes(countrySearch.toLowerCase()) || 
-                                    country.code.includes(countrySearch)
-                                  )
-                                  .map((country) => (
-                                    <Listbox.Option
-                                      key={`${country.code}-${country.country}`}
-                                      value={country}
-                                      className={({ active, selected }) => `
-                                        relative cursor-pointer select-none py-2 px-4 ${
-                                          active ? 'bg-accent/10' : ''
-                                        } ${
-                                          selected ? 'bg-accent/20' : ''
-                                        }
-                                      `}
-                                    >
-                                      {({ selected }) => (
-                                        <div className="flex items-center gap-2">
-                                          <span className="text-lg">{country.flag}</span>
-                                          <div className="flex flex-col">
-                                            <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
-                                              {country.name}
-                                            </span>
-                                            <span className="text-xs text-[color:var(--foreground-secondary)]">
-                                              {country.code}
-                                            </span>
-                                          </div>
-                                          {selected && (
-                                            <span className="absolute inset-y-0 right-4 flex items-center text-accent">
-                                              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                              </svg>
-                                            </span>
-                                          )}
-                                        </div>
-                                      )}
-                                    </Listbox.Option>
-                                  ))}
-                              </Listbox.Options>
-                            </div>
-                          </Listbox>
-                          <div className="relative flex-grow">
-                            <input
-                              id="phone"
-                              type="tel"
-                              value={phone}
-                              onChange={(e) => setPhone(e.target.value)}
-                              placeholder="Enter your phone number"
-                              className="w-full pl-4 pr-4 py-2 bg-background/50 border border-[color:var(--border)] rounded-r-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors text-sm"
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {error && (
-                        <motion.div 
-                          className="bg-red-500/10 border border-red-500/30 text-red-500 px-3 py-2 rounded-lg text-xs"
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <div className="flex items-center gap-1.5">
-                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2"/>
-                              <path d="M12 7V13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                              <circle cx="12" cy="16" r="1" fill="currentColor"/>
-                            </svg>
-                            {error}
-                          </div>
-                        </motion.div>
-                      )}
-                      
-                      <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                        <GradientBorderButton
-                          onClick={handleSubmit}
-                        disabled={isSubmitting}
-                          className="w-full sm:w-auto"
-                        >
-                          {isSubmitting ? 'Starting Call...' : 'Call Me Now'}
-                        </GradientBorderButton>
-                      </div>
-                      
-                      <p className="text-xs text-center text-[color:var(--foreground-secondary)] mt-1">
-                        By clicking "Call Me Now", you agree to our Terms of Service and Privacy Policy.
-                      </p>
-                    </form>
-                  </div>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        {content}
       </div>
     </section>
   )

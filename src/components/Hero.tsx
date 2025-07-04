@@ -257,22 +257,22 @@ export default function Hero() {
                     <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M8 5V19L19 12L8 5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                  </div>
+            </div>
                   <div className="text-base font-semibold tracking-tight font-space-grotesk">Product Demo</div>
-                </div>
+            </div>
                 <div className="flex items-center gap-2">
                   <div className="px-3 py-1 bg-red-500/15 rounded-full text-xs font-medium text-red-600 flex items-center gap-1">
                     <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
                     Live Demo
-                  </div>
-                </div>
-              </div>
+          </div>
+        </div>
+      </div>
 
               {/* Video Player */}
               <div className="relative aspect-video bg-gradient-to-br from-gray-900 to-gray-800">
                 {/* Placeholder for YouTube video - will be replaced with actual video */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
+            <div className="text-center">
                     <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer group">
                       <svg className="w-8 h-8 text-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
@@ -322,9 +322,9 @@ export default function Hero() {
                       <circle cx="12" cy="12" r="3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                     1.2K views
-                  </div>
-                </div>
-              </div>
+            </div>
+            </div>
+            </div>
             </div>
           </motion.div>
         </div>
