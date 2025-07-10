@@ -119,7 +119,7 @@ export default function HomePage() {
                 <div className="relative aspect-video z-10 bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
                   {/* YouTube Thumbnail */}
                   <img 
-                    src="https://img.youtube.com/vi/JgDNFQ2RaLQ/maxresdefault.jpg" 
+                    src="https://img.youtube.com/vi/0hjFMl_YRGg/maxresdefault.jpg" 
                     alt="ZAVIS Demo Video Thumbnail"
                     className="absolute inset-0 w-full h-full object-cover rounded-2xl"
                   />
@@ -329,7 +329,7 @@ export default function HomePage() {
               {/* Video Player */}
               <div className="relative aspect-video">
                 <iframe
-                  src="https://www.youtube.com/embed/JgDNFQ2RaLQ?si=065OIPbX2qndIL7F&autoplay=1"
+                  src="https://www.youtube.com/embed/0hjFMl_YRGg?autoplay=1"
                   title="ZAVIS Demo Video"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
